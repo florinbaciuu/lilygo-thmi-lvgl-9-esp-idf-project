@@ -1,0 +1,11 @@
+dependencies:
+  idf:
+    version: '>=5.0'
+description: Cache Compensated Timer
+issues: https://github.com/espressif/idf-extra-components/issues
+repository: git://github.com/espressif/idf-extra-components.git
+repository_info:
+  commit_sha: 5d01f78b7888cbbd874550ecf37152d5ec41ab50
+  path: ccomp_timer
+url: https://github.com/espressif/idf-extra-components/tree/master/ccomp_timer
+version: 1.0.0~1

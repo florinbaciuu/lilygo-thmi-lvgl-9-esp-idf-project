@@ -108,6 +108,10 @@ extern "C" {
 #include <lv_conf.h>
 }
 
+#include <fmt/base.h>
+#include <fmt/chrono.h>
+#include <fmt/color.h>
+
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
@@ -678,13 +682,12 @@ extern "C" void app_main(void) {
         disp, disp_draw_buf, NULL, bufSize, (lv_display_render_mode_t)RENDER_MODE);
 #endif
 
-    // lv_display_set_resolution(disp, LCD_WIDTH, LCD_HEIGHT);          // Seteaza rezolutia
-    // software lv_display_set_physical_resolution(disp, LCD_WIDTH, LCD_HEIGHT); // Actualizeaza
-    // rezolutia reala lv_display_set_rotation(disp, (lv_display_rotation_t)0);         // Seteaza
-    // rotatia lvgl lv_display_set_render_mode(
-    //     disp, (lv_display_render_mode_t)RENDER_MODE); // Seteaza (lv_display_render_mode_t)
-    // lv_display_set_antialiasing(disp, true);          // Antialiasing DA sau NU
-    // ESP_LOGI("LVGL", "LVGL display settings done");
+    // lv_display_set_resolution(disp, LCD_WIDTH, LCD_HEIGHT);
+    // software lv_display_set_physical_resolution(disp, LCD_WIDTH, LCD_HEIGHT);
+    lv_display_set_rotation(disp, (lv_display_rotation_t)0); // Seteaza rotatia
+    lv_display_set_render_mode(disp, (lv_display_render_mode_t)RENDER_MODE);
+    lv_display_set_antialiasing(disp, true);
+    ESP_LOGI("LVGL", "LVGL display settings done");
 
     lv_indev_t* indev = lv_indev_create();           /*Initialize the (dummy) input device driver*/
     lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER); /*Touchpad should have POINTER type*/
@@ -695,7 +698,21 @@ extern "C" void app_main(void) {
     lvgl_port_lock(0);
     create_tabs_ui(); // Creeaza interfata grafica
     lvgl_port_unlock();
+
     // start_resource_monitor();
+
+    // Use the ftm component
+    // the ftm component use {} for the parameter enter point
+    fmt::print("Hello, world from <ftm> Component!\n");
+    std::string string1 = fmt::format("The nr is {}.\n", 1);
+    fmt::print("{}", string1);
+    std::string string2 = fmt::format("I'd rather be {1} than {0}.\n", "right", "happy");
+    fmt::print("{}\n", string2);
+    std::string string3 = fmt::format("{1}{0}\n", "Hello", "World");
+    fmt::print("{}\n", string3);
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "Hello, {}!\n", "world");
+    fmt::print(fg(fmt::color::floral_white) | bg(fmt::color::slate_gray) | fmt::emphasis::underline,"Olá, {}!\n", "Mundo");
+    fmt::print(fg(fmt::color::steel_blue) | fmt::emphasis::italic, "Hello{}！\n", "World");
 
     StartCLI();
 

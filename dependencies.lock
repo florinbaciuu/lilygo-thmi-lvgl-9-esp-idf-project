@@ -1,4 +1,10 @@
 dependencies:
+  cmake_utilities:
+    dependencies: []
+    source:
+      path: /Users/florinbaciu/Desktop/workspace/lilygo-thmi-lvgl-9-esp-idf-project/components/cmake_utilities
+      type: local
+    version: 1.1.1
   esp_lcd_touch:
     dependencies: []
     source:
@@ -17,9 +23,10 @@ dependencies:
       type: service
     version: 9.3.0
 direct_dependencies:
+- espressif/cmake_utilities
 - espressif/esp_lcd_touch
 - idf
 - lvgl/lvgl
-manifest_hash: 821aae10dbfbc0350ad6a01aa6ee849e1466c46bf4d1e2d88ed8be88dee9a91c
+manifest_hash: ee7f6aecb86e1a58f2407f50d4e25305260227d72ad24d82a8d5bd8a93c89a74
 target: esp32s3
 version: 2.0.0
