@@ -716,14 +716,6 @@ extern "C" void app_main(void) {
 
     StartCLI();
 
-    xTaskCreatePinnedToCore(chechButton0State, // Functia care ruleaza task-ul
-        (const char*)"v_check_0_pin_state",    // Numele task-ului
-        (uint32_t)(4096),                      // Dimensiunea stack-ului
-        (NULL),                                // Parametri
-        (UBaseType_t)configMAX_PRIORITIES - 7, // Prioritatea task-ului // 6
-        &xHandle_chechButton0State,            // Handle-ul task-ului
-        ((1))                                  // Nucleul pe care ruleaza (ESP32 e dual-core)
-    );
 } // app_main
 
 /********************************************** */
