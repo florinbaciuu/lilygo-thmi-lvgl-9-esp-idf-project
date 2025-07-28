@@ -1,0 +1,41 @@
+CompileFlags:
+  Add:
+    - -std=gnu17
+    - -DESP_PLATFORM
+    - -DCONFIG_IDF_TARGET=esp32s3
+    - -I${workspaceFolder}/include
+    - -I${workspaceFolder}/src
+    - -I${workspaceFolder}/modules/restart
+    - -I${workspaceFolder}/modules/tasks_nfo
+    - -I${workspaceFolder}/modules/uptime
+    - -I${workspaceFolder}/modules/info
+    - -I${workspaceFolder}/modules/nvs_cmd
+    - -I${workspaceFolder}/modules/wifi_cmd
+    - -I${workspaceFolder}/modules/set_cmd
+    - -I${workspaceFolder}/build/config
+    - -I${workspaceFolder}/build/include
+    - -Wno-unused-parameter
+    - -Wno-unused-function
+    - -Wno-missing-field-initializers
+    - -Wall
+    - -Wextra
+
+Diagnostics:
+  ClangTidy:
+    Add: [modernize-*, bugprone-*, performance-*]
+    Remove: [readability-magic-numbers]
+    CheckOptions:
+      modernize-use-nullptr.NullMacros: ['NULL']
+      readability-identifier-naming.ClassCase: CamelCase
+
+InlayHints:
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: true
+  Designators: true
+
+Hover:
+  ShowAKA: true
+
+Index:
+  Background: true

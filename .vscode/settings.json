@@ -1,0 +1,6 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "idf.port": "/dev/tty.usbmodem2201",
+  "idf.flashType": "UART",
+  "idf.currentSetup": "/Users/florinbaciu/Espressif/framework/esp-idf-v5.5"
+}

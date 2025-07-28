@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-73KGWFC8DM"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-73KGWFC8DM');
+        </script><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>General Purpose Timer (GPTimer) - ESP32 -  &mdash; ESP-IDF Programming Guide v5.4.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=a60756f2" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=949a1ff5" />
+      <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=851bd809" />
+
+  
+    <link rel="canonical" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gptimer.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=c241bbaf"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ff8fa330"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+
+    
+        
+
+    <script type="text/javascript">
+        DOCUMENTATION_OPTIONS.PAGENAME = 'api-reference/peripherals/gptimer';
+        DOCUMENTATION_OPTIONS.PROJECT_SLUG = 'esp-idf';
+        DOCUMENTATION_OPTIONS.LATEST_BRANCH_NAME = 'master';
+        DOCUMENTATION_OPTIONS.VERSIONS_URL = 'https://dl.espressif.com/dl/esp-idf/idf_versions.js';
+        DOCUMENTATION_OPTIONS.LANGUAGES = ["en", "zh_CN"];
+        DOCUMENTATION_OPTIONS.IDF_TARGET = 'esp32';
+        DOCUMENTATION_OPTIONS.HAS_IDF_TARGETS = ["esp32", "esp32s2", "esp32s3", "esp32c3", "esp32c2", "esp32c5", "esp32c6", "esp32p4"]
+        DOCUMENTATION_OPTIONS.RELEASE = 'v5.4.2';
+        DOCUMENTATION_OPTIONS.LANGUAGE_URL = 'en';
+
+    </script>
+
+    <script type="text/javascript" src="https://dl.espressif.com/dl/esp-idf/idf_versions.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Inter-Integrated Circuit (I2C)" href="i2c.html" />
+    <link rel="prev" title="GPIO &amp; RTC GPIO" href="gpio.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            ESP-IDF Programming Guide
+              <img src="../../_static/espressif-logo.svg" class="logo" alt="Logo"/>
+          </a>
+
+          
+            <div class="selectors">
+              <select id="target-select" style="width: 150px;" hidden>
+                <option value="" disabled selected>Choose target...</option>
+              </select>
+            </div>
+          
+
+          <div class="selectors">
+            <select id="version-select" style="width: 150px;" hidden>
+              <option value="" disabled selected>Choose version...</option>
+            </select>
+          </div>
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Get Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api-conventions.html">API Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../protocols/index.html">Application Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bluetooth/index.html">Bluetooth® API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error-codes.html">Error Codes Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/index.html">Networking APIs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Peripherals API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="adc_oneshot.html">Analog to Digital Converter (ADC) Oneshot Mode Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adc_continuous.html">Analog to Digital Converter (ADC) Continuous Mode Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adc_calibration.html">Analog to Digital Converter (ADC) Calibration Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clk_tree.html">Clock Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dac.html">Digital To Analog Converter (DAC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html">GPIO &amp; RTC GPIO</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">General Purpose Timer (GPTimer)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functional-overview">Functional Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#application-examples">Application Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html">Inter-Integrated Circuit (I2C)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2s.html">Inter-IC Sound (I2S)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lcd/index.html">LCD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ledc.html">LED Control (LEDC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpwm.html">Motor Control Pulse Width Modulator (MCPWM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pcnt.html">Pulse Counter (PCNT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rmt.html">Remote Control Transceiver (RMT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_pullup_requirements.html">SD Pull-up Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdmmc_host.html">SDMMC Host Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdspi_host.html">SD SPI Host Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdio_slave.html">SDIO Card Slave Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdm.html">Sigma-Delta Modulation (SDM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_flash/index.html">SPI Flash API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_master.html">SPI Master Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi_slave.html">SPI Slave Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch_pad.html">Touch Sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="twai.html">Two-Wire Automotive Interface (TWAI)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uart.html">Universal Asynchronous Receiver/Transmitter (UART)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kconfig.html">Project Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provisioning/index.html">Provisioning API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">Storage API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">System API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw-reference/index.html">Hardware Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-guides/index.html">API Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migration-guides/index.html">Migration Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries-and-frameworks/index.html">Libraries and Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/index.html">Contributions Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">ESP-IDF Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../COPYRIGHT.html">Copyrights and Licenses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../languages.html">Switch Between Languages</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ESP-IDF Programming Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Peripherals API</a></li>
+      <li class="breadcrumb-item active">General Purpose Timer (GPTimer)</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/espressif/esp-idf/blob/v5.4.2/docs/en/api-reference/peripherals/gptimer.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="general-purpose-timer-gptimer">
+<h1>General Purpose Timer (GPTimer)<a class="headerlink" href="#general-purpose-timer-gptimer" title="Permalink to this heading"></a></h1>
+<p><a class="reference external" href="../../../../../zh_CN/v5.4.2/esp32/api-reference/peripherals/gptimer.html">[中文]</a></p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>GPTimer (General Purpose Timer) is the driver of ESP32 Timer Group peripheral. The hardware timer features high resolution and flexible alarm action. A timer alarm occurs when the internal counter of a timer reaches a specific target value. At that moment, a user-registered per-timer callback function is triggered.</p>
+<p>General-purpose timers are typically used in the following scenarios:</p>
+<ul class="simple">
+<li><p>To run freely like a clock, providing high-resolution timestamps anytime and anywhere;</p></li>
+<li><p>To generate periodic alarms that trigger events at regular intervals;</p></li>
+<li><p>To generate one-shot alarms that respond at a specific target time.</p></li>
+</ul>
+</section>
+<section id="functional-overview">
+<h2>Functional Overview<a class="headerlink" href="#functional-overview" title="Permalink to this heading"></a></h2>
+<p>The following sections of this document cover the typical steps to install and operate a timer:</p>
+<p><ul class="simple">
+<li><p><a class="reference internal" href="#gptimer-resource-allocation"><span class="std std-ref">Resource Allocation</span></a> - covers which parameters should be set up to get a timer handle and how to recycle the resources when GPTimer finishes working.</p></li>
+<li><p><a class="reference internal" href="#set-and-get-count-value"><span class="std std-ref">Set and Get Count Value</span></a> - covers how to force the timer counting from a start point and how to get the count value at anytime.</p></li>
+<li><p><a class="reference internal" href="#set-up-alarm-action"><span class="std std-ref">Set up Alarm Action</span></a> - covers the parameters that should be set up to enable the alarm event.</p></li>
+<li><p><a class="reference internal" href="#gptimer-register-event-callbacks"><span class="std std-ref">Register Event Callbacks</span></a> - covers how to hook user specific code to the alarm event callback function.</p></li>
+<li><p><a class="reference internal" href="#enable-and-disable-timer"><span class="std std-ref">Enable and Disable Timer</span></a> - covers how to enable and disable the timer.</p></li>
+<li><p><a class="reference internal" href="#start-and-stop-timer"><span class="std std-ref">Start and Stop Timer</span></a> - shows some typical use cases that start the timer with different alarm behavior.</p></li>
+<li><p><a class="reference internal" href="#gptimer-power-management"><span class="std std-ref">Power Management</span></a> - describes how different source clock selections can affect power consumption.</p></li>
+<li><p><a class="reference internal" href="#gptimer-iram-safe"><span class="std std-ref">IRAM Safe</span></a> - describes tips on how to make the timer interrupt and IO control functions work better along with a disabled cache.</p></li>
+<li><p><a class="reference internal" href="#gptimer-thread-safety"><span class="std std-ref">Thread Safety</span></a> - lists which APIs are guaranteed to be thread safe by the driver.</p></li>
+<li><p><a class="reference internal" href="#gptimer-kconfig-options"><span class="std std-ref">Kconfig Options</span></a> - lists the supported Kconfig options that can be used to make a different effect on driver behavior.</p></li>
+</ul>
+</p>
+<section id="resource-allocation">
+<span id="gptimer-resource-allocation"></span><h3>Resource Allocation<a class="headerlink" href="#resource-allocation" title="Permalink to this heading"></a></h3>
+<p>Different ESP chips might have different numbers of independent timer groups, and within each group, there could also be several independent timers. <a class="footnote-reference brackets" href="#id11" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<p>A GPTimer instance is represented by <a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">gptimer_handle_t</span></code></a>. The driver behind manages all available hardware resources in a pool, so that you do not need to care about which timer and which group it belongs to.</p>
+<p>To install a timer instance, there is a configuration structure that needs to be given in advance: <a class="reference internal" href="#_CPPv416gptimer_config_t" title="gptimer_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">gptimer_config_t</span></code></a>:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#_CPPv4N16gptimer_config_t7clk_srcE" title="gptimer_config_t::clk_src"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_config_t::clk_src</span></code></a> selects the source clock for the timer. The available clocks are listed in <a class="reference internal" href="#_CPPv422gptimer_clock_source_t" title="gptimer_clock_source_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">gptimer_clock_source_t</span></code></a>, you can only pick one of them. For the effect on power consumption of different clock source, please refer to Section <a class="reference internal" href="#gptimer-power-management"><span class="std std-ref">Power Management</span></a>.</p></li>
+<li><p><a class="reference internal" href="#_CPPv4N16gptimer_config_t9directionE" title="gptimer_config_t::direction"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_config_t::direction</span></code></a> sets the counting direction of the timer, supported directions are listed in <a class="reference internal" href="#_CPPv425gptimer_count_direction_t" title="gptimer_count_direction_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">gptimer_count_direction_t</span></code></a>, you can only pick one of them.</p></li>
+<li><p><a class="reference internal" href="#_CPPv4N16gptimer_config_t13resolution_hzE" title="gptimer_config_t::resolution_hz"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_config_t::resolution_hz</span></code></a> sets the resolution of the internal counter. Each count step is equivalent to <strong>1 / resolution_hz</strong> seconds.</p></li>
+<li><p><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_config::intr_priority</span></code> sets the priority of the timer interrupt. If it is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>, the driver will allocate an interrupt with a default priority. Otherwise, the driver will use the given priority.</p></li>
+<li><p><a class="reference internal" href="#_CPPv4N16gptimer_config_t8allow_pdE" title="gptimer_config_t::allow_pd"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_config_t::allow_pd</span></code></a> configures if the driver allows the system to power down the peripheral in light sleep mode. Before entering sleep, the system will backup the GPTimer register context, which will be restored later when the system exit the sleep mode. Powering down the peripheral can save more power, but at the cost of more memory consumed to save the register context. It's a tradeoff between power consumption and memory consumption. This configuration option relies on specific hardware feature, if you enable it on an unsupported chip, you will see error message like <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">able</span> <span class="pre">to</span> <span class="pre">power</span> <span class="pre">down</span> <span class="pre">in</span> <span class="pre">light</span> <span class="pre">sleep</span></code>.</p></li>
+<li><p>Optional <a class="reference internal" href="#_CPPv4N16gptimer_config_t11intr_sharedE" title="gptimer_config_t::intr_shared"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_config_t::intr_shared</span></code></a> sets whether or not mark the timer interrupt source as a shared one. For the pros/cons of a shared interrupt, you can refer to <a class="reference internal" href="../system/intr_alloc.html"><span class="doc">Interrupt Handling</span></a>.</p></li>
+</ul>
+<p>With all the above configurations set in the structure, the structure can be passed to <a class="reference internal" href="#_CPPv417gptimer_new_timerPK16gptimer_config_tP16gptimer_handle_t" title="gptimer_new_timer"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_new_timer()</span></code></a> which will instantiate the timer instance and return a handle of the timer.</p>
+<p>The function can fail due to various errors such as insufficient memory, invalid arguments, etc. Specifically, when there are no more free timers (i.e., all hardware resources have been used up), then <a class="reference internal" href="../system/esp_err.html#c.ESP_ERR_NOT_FOUND" title="ESP_ERR_NOT_FOUND"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_NOT_FOUND</span></code></a> will be returned. The total number of available timers is represented by the <a class="reference internal" href="../system/soc_caps.html#c.SOC_TIMER_GROUP_TOTAL_TIMERS" title="SOC_TIMER_GROUP_TOTAL_TIMERS"><code class="xref c c-macro docutils literal notranslate"><span class="pre">SOC_TIMER_GROUP_TOTAL_TIMERS</span></code></a> and its value depends on the ESP chip.</p>
+<p>If a previously created GPTimer instance is no longer required, you should recycle the timer by calling <a class="reference internal" href="#_CPPv417gptimer_del_timer16gptimer_handle_t" title="gptimer_del_timer"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_del_timer()</span></code></a>. This allows the underlying HW timer to be used for other purposes. Before deleting a GPTimer handle, please disable it by <a class="reference internal" href="#_CPPv415gptimer_disable16gptimer_handle_t" title="gptimer_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_disable()</span></code></a> in advance or make sure it has not enabled yet by <a class="reference internal" href="#_CPPv414gptimer_enable16gptimer_handle_t" title="gptimer_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_enable()</span></code></a>.</p>
+<section id="creating-a-gptimer-handle-with-resolution-of-1-mhz">
+<h4>Creating a GPTimer Handle with Resolution of 1 MHz<a class="headerlink" href="#creating-a-gptimer-handle-with-resolution-of-1-mhz" title="Permalink to this heading"></a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">gptimer_handle_t</span><span class="w"> </span><span class="n">gptimer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="n">gptimer_config_t</span><span class="w"> </span><span class="n">timer_config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">clk_src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GPTIMER_CLK_SRC_DEFAULT</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GPTIMER_COUNT_UP</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">resolution_hz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="c1">// 1MHz, 1 tick = 1us</span>
+<span class="p">};</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_new_timer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timer_config</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">gptimer</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="set-and-get-count-value">
+<span id="id2"></span><h3>Set and Get Count Value<a class="headerlink" href="#set-and-get-count-value" title="Permalink to this heading"></a></h3>
+<p>When the GPTimer is created, the internal counter will be reset to zero by default. The counter value can be updated asynchronously by <a class="reference internal" href="#_CPPv421gptimer_set_raw_count16gptimer_handle_t8uint64_t" title="gptimer_set_raw_count"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_set_raw_count()</span></code></a>. The maximum count value is dependent on the bit width of the hardware timer, which is also reflected by the SOC macro <a class="reference internal" href="../system/soc_caps.html#c.SOC_TIMER_GROUP_COUNTER_BIT_WIDTH" title="SOC_TIMER_GROUP_COUNTER_BIT_WIDTH"><code class="xref c c-macro docutils literal notranslate"><span class="pre">SOC_TIMER_GROUP_COUNTER_BIT_WIDTH</span></code></a>. When updating the raw count of an active timer, the timer will immediately start counting from the new value.</p>
+<p>Count value can be retrieved by <a class="reference internal" href="#_CPPv421gptimer_get_raw_count16gptimer_handle_tP8uint64_t" title="gptimer_get_raw_count"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_get_raw_count()</span></code></a>, at any time.</p>
+</section>
+<section id="set-up-alarm-action">
+<span id="id3"></span><h3>Set up Alarm Action<a class="headerlink" href="#set-up-alarm-action" title="Permalink to this heading"></a></h3>
+<p>For most of the use cases of GPTimer, you should set up the alarm action before starting the timer, except for the simple wall-clock scenario, where a free running timer is enough. To set up the alarm action, you should configure several members of <a class="reference internal" href="#_CPPv422gptimer_alarm_config_t" title="gptimer_alarm_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">gptimer_alarm_config_t</span></code></a> based on how you make use of the alarm event:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#_CPPv4N22gptimer_alarm_config_t11alarm_countE" title="gptimer_alarm_config_t::alarm_count"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_alarm_config_t::alarm_count</span></code></a> sets the target count value that triggers the alarm event. You should also take the counting direction into consideration when setting the alarm value. Specially, <a class="reference internal" href="#_CPPv4N22gptimer_alarm_config_t11alarm_countE" title="gptimer_alarm_config_t::alarm_count"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_alarm_config_t::alarm_count</span></code></a> and <a class="reference internal" href="#_CPPv4N22gptimer_alarm_config_t12reload_countE" title="gptimer_alarm_config_t::reload_count"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_alarm_config_t::reload_count</span></code></a> cannot be set to the same value when <a class="reference internal" href="#_CPPv4N22gptimer_alarm_config_t20auto_reload_on_alarmE" title="gptimer_alarm_config_t::auto_reload_on_alarm"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_alarm_config_t::auto_reload_on_alarm</span></code></a> is true, as keeping reload with a target alarm count is meaningless. Please also note, because of the interrupt latency, it's not recommended to set the alarm period smaller than 5 us.</p></li>
+<li><p><a class="reference internal" href="#_CPPv4N22gptimer_alarm_config_t12reload_countE" title="gptimer_alarm_config_t::reload_count"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_alarm_config_t::reload_count</span></code></a> sets the count value to be reloaded when the alarm event happens. This configuration only takes effect when <a class="reference internal" href="#_CPPv4N22gptimer_alarm_config_t20auto_reload_on_alarmE" title="gptimer_alarm_config_t::auto_reload_on_alarm"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_alarm_config_t::auto_reload_on_alarm</span></code></a> is set to true.</p></li>
+<li><p><a class="reference internal" href="#_CPPv4N22gptimer_alarm_config_t20auto_reload_on_alarmE" title="gptimer_alarm_config_t::auto_reload_on_alarm"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_alarm_config_t::auto_reload_on_alarm</span></code></a> flag sets whether to enable the auto-reload feature. If enabled, the hardware timer will reload the value of <a class="reference internal" href="#_CPPv4N22gptimer_alarm_config_t12reload_countE" title="gptimer_alarm_config_t::reload_count"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_alarm_config_t::reload_count</span></code></a> into counter immediately when an alarm event happens.</p></li>
+</ul>
+<p>To make the alarm configurations take effect, you should call <a class="reference internal" href="#_CPPv424gptimer_set_alarm_action16gptimer_handle_tPK22gptimer_alarm_config_t" title="gptimer_set_alarm_action"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_set_alarm_action()</span></code></a>. Especially, if <a class="reference internal" href="#_CPPv422gptimer_alarm_config_t" title="gptimer_alarm_config_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">gptimer_alarm_config_t</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, the alarm function will be disabled.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If an alarm value is set and the timer has already exceeded this value, the alarm will be triggered immediately.</p>
+</div>
+</section>
+<section id="register-event-callbacks">
+<span id="gptimer-register-event-callbacks"></span><h3>Register Event Callbacks<a class="headerlink" href="#register-event-callbacks" title="Permalink to this heading"></a></h3>
+<p>After the timer starts up, it can generate a specific event (e.g., the &quot;Alarm Event&quot;) dynamically. If you have some functions that should be called when the event happens, please hook your function to the interrupt service routine by calling <a class="reference internal" href="#_CPPv432gptimer_register_event_callbacks16gptimer_handle_tPK25gptimer_event_callbacks_tPv" title="gptimer_register_event_callbacks"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_register_event_callbacks()</span></code></a>. All supported event callbacks are listed in <a class="reference internal" href="#_CPPv425gptimer_event_callbacks_t" title="gptimer_event_callbacks_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">gptimer_event_callbacks_t</span></code></a>:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#_CPPv4N25gptimer_event_callbacks_t8on_alarmE" title="gptimer_event_callbacks_t::on_alarm"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_event_callbacks_t::on_alarm</span></code></a> sets a callback function for alarm events. As this function is called within the ISR context, you must ensure that the function does not attempt to block (e.g., by making sure that only FreeRTOS APIs with <code class="docutils literal notranslate"><span class="pre">ISR</span></code> suffix are called from within the function). The function prototype is declared in <a class="reference internal" href="#_CPPv418gptimer_alarm_cb_t" title="gptimer_alarm_cb_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">gptimer_alarm_cb_t</span></code></a>.</p></li>
+</ul>
+<p>You can save your own context to <a class="reference internal" href="#_CPPv432gptimer_register_event_callbacks16gptimer_handle_tPK25gptimer_event_callbacks_tPv" title="gptimer_register_event_callbacks"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_register_event_callbacks()</span></code></a> as well, via the parameter <code class="docutils literal notranslate"><span class="pre">user_data</span></code>. The user data will be directly passed to the callback function.</p>
+<p>This function lazy installs the interrupt service for the timer but not enable it. So please call this function before <a class="reference internal" href="#_CPPv414gptimer_enable16gptimer_handle_t" title="gptimer_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_enable()</span></code></a>, otherwise the <a class="reference internal" href="../system/esp_err.html#c.ESP_ERR_INVALID_STATE" title="ESP_ERR_INVALID_STATE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_INVALID_STATE</span></code></a> error will be returned. See Section <a class="reference internal" href="#enable-and-disable-timer"><span class="std std-ref">Enable and Disable Timer</span></a> for more information.</p>
+</section>
+<section id="enable-and-disable-timer">
+<span id="id4"></span><h3>Enable and Disable Timer<a class="headerlink" href="#enable-and-disable-timer" title="Permalink to this heading"></a></h3>
+<p>Before doing IO control to the timer, you need to enable the timer first, by calling <a class="reference internal" href="#_CPPv414gptimer_enable16gptimer_handle_t" title="gptimer_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_enable()</span></code></a>. This function:</p>
+<ul class="simple">
+<li><p>Switches the timer driver state from <strong>init</strong> to <strong>enable</strong>.</p></li>
+<li><p>Enables the interrupt service if it has been lazy installed by <a class="reference internal" href="#_CPPv432gptimer_register_event_callbacks16gptimer_handle_tPK25gptimer_event_callbacks_tPv" title="gptimer_register_event_callbacks"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_register_event_callbacks()</span></code></a>.</p></li>
+<li><p>Acquires a proper power management lock if a specific clock source (e.g., APB clock) is selected. See Section <a class="reference internal" href="#gptimer-power-management"><span class="std std-ref">Power Management</span></a> for more information.</p></li>
+</ul>
+<p>Calling <a class="reference internal" href="#_CPPv415gptimer_disable16gptimer_handle_t" title="gptimer_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_disable()</span></code></a> does the opposite, that is, put the timer driver back to the <strong>init</strong> state, disable the interrupts service and release the power management lock.</p>
+</section>
+<section id="start-and-stop-timer">
+<span id="id5"></span><h3>Start and Stop Timer<a class="headerlink" href="#start-and-stop-timer" title="Permalink to this heading"></a></h3>
+<p>The basic IO operation of a timer is to start and stop. Calling <a class="reference internal" href="#_CPPv413gptimer_start16gptimer_handle_t" title="gptimer_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_start()</span></code></a> can make the internal counter work, while calling <a class="reference internal" href="#_CPPv412gptimer_stop16gptimer_handle_t" title="gptimer_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_stop()</span></code></a> can make the counter stop working. The following illustrates how to start a timer with or without an alarm event.</p>
+<p>Calling <a class="reference internal" href="#_CPPv413gptimer_start16gptimer_handle_t" title="gptimer_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_start()</span></code></a> transits the driver state from <strong>enable</strong> to <strong>run</strong>, and vice versa. You need to make sure the start and stop functions are used in pairs, otherwise, the functions may return <a class="reference internal" href="../system/esp_err.html#c.ESP_ERR_INVALID_STATE" title="ESP_ERR_INVALID_STATE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">ESP_ERR_INVALID_STATE</span></code></a>. Most of the time, this error means that the timer is already stopped or in the &quot;start protection&quot; state (i.e., <a class="reference internal" href="#_CPPv413gptimer_start16gptimer_handle_t" title="gptimer_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_start()</span></code></a> is called but not finished).</p>
+<section id="start-timer-as-a-wall-clock">
+<h4>Start Timer as a Wall Clock<a class="headerlink" href="#start-timer-as-a-wall-clock" title="Permalink to this heading"></a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_enable</span><span class="p">(</span><span class="n">gptimer</span><span class="p">));</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_start</span><span class="p">(</span><span class="n">gptimer</span><span class="p">));</span>
+<span class="c1">// Retrieve the timestamp at any time</span>
+<span class="kt">uint64_t</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_get_raw_count</span><span class="p">(</span><span class="n">gptimer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">count</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="trigger-period-events">
+<h4>Trigger Period Events<a class="headerlink" href="#trigger-period-events" title="Permalink to this heading"></a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">event_count</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">example_queue_element_t</span><span class="p">;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">example_timer_on_alarm_cb</span><span class="p">(</span><span class="n">gptimer_handle_t</span><span class="w"> </span><span class="n">timer</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">gptimer_alarm_event_data_t</span><span class="w"> </span><span class="o">*</span><span class="n">edata</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ctx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">BaseType_t</span><span class="w"> </span><span class="n">high_task_awoken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pdFALSE</span><span class="p">;</span>
+<span class="w">    </span><span class="n">QueueHandle_t</span><span class="w"> </span><span class="n">queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">QueueHandle_t</span><span class="p">)</span><span class="n">user_ctx</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Retrieve the count value from event data</span>
+<span class="w">    </span><span class="n">example_queue_element_t</span><span class="w"> </span><span class="n">ele</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">event_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edata</span><span class="o">-&gt;</span><span class="n">count_value</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="c1">// Optional: send the event data to other task by OS queue</span>
+<span class="w">    </span><span class="c1">// Do not introduce complex logics in callbacks</span>
+<span class="w">    </span><span class="c1">// Suggest dealing with event data in the main loop, instead of in this callback</span>
+<span class="w">    </span><span class="n">xQueueSendFromISR</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ele</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">high_task_awoken</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// return whether we need to yield at the end of ISR</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">high_task_awoken</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">pdTRUE</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">gptimer_alarm_config_t</span><span class="w"> </span><span class="n">alarm_config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">reload_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="c1">// counter will reload with 0 on alarm event</span>
+<span class="w">    </span><span class="p">.</span><span class="n">alarm_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w"> </span><span class="c1">// period = 1s @resolution 1MHz</span>
+<span class="w">    </span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">auto_reload_on_alarm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// enable auto-reload</span>
+<span class="p">};</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_set_alarm_action</span><span class="p">(</span><span class="n">gptimer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">alarm_config</span><span class="p">));</span>
+
+<span class="n">gptimer_event_callbacks_t</span><span class="w"> </span><span class="n">cbs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">on_alarm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_timer_on_alarm_cb</span><span class="p">,</span><span class="w"> </span><span class="c1">// register user callback</span>
+<span class="p">};</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_register_event_callbacks</span><span class="p">(</span><span class="n">gptimer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cbs</span><span class="p">,</span><span class="w"> </span><span class="n">queue</span><span class="p">));</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_enable</span><span class="p">(</span><span class="n">gptimer</span><span class="p">));</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_start</span><span class="p">(</span><span class="n">gptimer</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="trigger-one-shot-event">
+<h4>Trigger One-Shot Event<a class="headerlink" href="#trigger-one-shot-event" title="Permalink to this heading"></a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">event_count</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">example_queue_element_t</span><span class="p">;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">example_timer_on_alarm_cb</span><span class="p">(</span><span class="n">gptimer_handle_t</span><span class="w"> </span><span class="n">timer</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">gptimer_alarm_event_data_t</span><span class="w"> </span><span class="o">*</span><span class="n">edata</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ctx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">BaseType_t</span><span class="w"> </span><span class="n">high_task_awoken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pdFALSE</span><span class="p">;</span>
+<span class="w">    </span><span class="n">QueueHandle_t</span><span class="w"> </span><span class="n">queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">QueueHandle_t</span><span class="p">)</span><span class="n">user_ctx</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Stop timer the sooner the better</span>
+<span class="w">    </span><span class="n">gptimer_stop</span><span class="p">(</span><span class="n">timer</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Retrieve the count value from event data</span>
+<span class="w">    </span><span class="n">example_queue_element_t</span><span class="w"> </span><span class="n">ele</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">event_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edata</span><span class="o">-&gt;</span><span class="n">count_value</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="c1">// Optional: send the event data to other task by OS queue</span>
+<span class="w">    </span><span class="n">xQueueSendFromISR</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ele</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">high_task_awoken</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// return whether we need to yield at the end of ISR</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">high_task_awoken</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">pdTRUE</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">gptimer_alarm_config_t</span><span class="w"> </span><span class="n">alarm_config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">alarm_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="c1">// alarm target = 1s @resolution 1MHz</span>
+<span class="p">};</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_set_alarm_action</span><span class="p">(</span><span class="n">gptimer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">alarm_config</span><span class="p">));</span>
+
+<span class="n">gptimer_event_callbacks_t</span><span class="w"> </span><span class="n">cbs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">on_alarm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_timer_on_alarm_cb</span><span class="p">,</span><span class="w"> </span><span class="c1">// register user callback</span>
+<span class="p">};</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_register_event_callbacks</span><span class="p">(</span><span class="n">gptimer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cbs</span><span class="p">,</span><span class="w"> </span><span class="n">queue</span><span class="p">));</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_enable</span><span class="p">(</span><span class="n">gptimer</span><span class="p">));</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_start</span><span class="p">(</span><span class="n">gptimer</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="dynamic-alarm-update">
+<h4>Dynamic Alarm Update<a class="headerlink" href="#dynamic-alarm-update" title="Permalink to this heading"></a></h4>
+<p>Alarm value can be updated dynamically inside the ISR handler callback, by changing <a class="reference internal" href="#_CPPv4N26gptimer_alarm_event_data_t11alarm_valueE" title="gptimer_alarm_event_data_t::alarm_value"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_alarm_event_data_t::alarm_value</span></code></a>. Then the alarm value will be updated after the callback function returns.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">event_count</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">example_queue_element_t</span><span class="p">;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">example_timer_on_alarm_cb</span><span class="p">(</span><span class="n">gptimer_handle_t</span><span class="w"> </span><span class="n">timer</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">gptimer_alarm_event_data_t</span><span class="w"> </span><span class="o">*</span><span class="n">edata</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ctx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">BaseType_t</span><span class="w"> </span><span class="n">high_task_awoken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pdFALSE</span><span class="p">;</span>
+<span class="w">    </span><span class="n">QueueHandle_t</span><span class="w"> </span><span class="n">queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">QueueHandle_t</span><span class="p">)</span><span class="n">user_data</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Retrieve the count value from event data</span>
+<span class="w">    </span><span class="n">example_queue_element_t</span><span class="w"> </span><span class="n">ele</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">event_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edata</span><span class="o">-&gt;</span><span class="n">count_value</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="c1">// Optional: send the event data to other task by OS queue</span>
+<span class="w">    </span><span class="n">xQueueSendFromISR</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ele</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">high_task_awoken</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// reconfigure alarm value</span>
+<span class="w">    </span><span class="n">gptimer_alarm_config_t</span><span class="w"> </span><span class="n">alarm_config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">alarm_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edata</span><span class="o">-&gt;</span><span class="n">alarm_value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w"> </span><span class="c1">// alarm in next 1s</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">gptimer_set_alarm_action</span><span class="p">(</span><span class="n">timer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">alarm_config</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// return whether we need to yield at the end of ISR</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">high_task_awoken</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">pdTRUE</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">gptimer_alarm_config_t</span><span class="w"> </span><span class="n">alarm_config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">alarm_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w"> </span><span class="c1">// initial alarm target = 1s @resolution 1MHz</span>
+<span class="p">};</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_set_alarm_action</span><span class="p">(</span><span class="n">gptimer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">alarm_config</span><span class="p">));</span>
+
+<span class="n">gptimer_event_callbacks_t</span><span class="w"> </span><span class="n">cbs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">on_alarm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_timer_on_alarm_cb</span><span class="p">,</span><span class="w"> </span><span class="c1">// register user callback</span>
+<span class="p">};</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_register_event_callbacks</span><span class="p">(</span><span class="n">gptimer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cbs</span><span class="p">,</span><span class="w"> </span><span class="n">queue</span><span class="p">));</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_enable</span><span class="p">(</span><span class="n">gptimer</span><span class="p">));</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">gptimer_start</span><span class="p">(</span><span class="n">gptimer</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="power-management">
+<span id="gptimer-power-management"></span><h3>Power Management<a class="headerlink" href="#power-management" title="Permalink to this heading"></a></h3>
+<p>When power management is enabled, i.e., <a class="reference internal" href="../kconfig.html#config-pm-enable"><span class="std std-ref">CONFIG_PM_ENABLE</span></a> is on, the system may adjust or disable the clock source before going to sleep. As a result, the time keeping will be inaccurate.</p>
+<p>The driver can prevent the above issue by creating a power management lock. The lock type is set based on different clock sources. The driver will acquire the lock in <a class="reference internal" href="#_CPPv414gptimer_enable16gptimer_handle_t" title="gptimer_enable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_enable()</span></code></a>, and release it in <a class="reference internal" href="#_CPPv415gptimer_disable16gptimer_handle_t" title="gptimer_disable"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_disable()</span></code></a>. So that the timer can work correctly in between these two functions, because the clock source won't be disabled or adjusted its frequency during this time.</p>
+</section>
+<section id="iram-safe">
+<span id="gptimer-iram-safe"></span><h3>IRAM Safe<a class="headerlink" href="#iram-safe" title="Permalink to this heading"></a></h3>
+<p>By default, the GPTimer interrupt will be deferred when the cache is disabled because of writing or erasing the flash. Thus the alarm interrupt will not get executed in time, which is not expected in a real-time application.</p>
+<p>There is a Kconfig option <a class="reference internal" href="../kconfig.html#config-gptimer-isr-iram-safe"><span class="std std-ref">CONFIG_GPTIMER_ISR_IRAM_SAFE</span></a> that:</p>
+<ul class="simple">
+<li><p>Enables the interrupt being serviced even when the cache is disabled</p></li>
+<li><p>Places all functions that used by the ISR into IRAM <a class="footnote-reference brackets" href="#id12" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></li>
+<li><p>Places driver object into DRAM (in case it is mapped to PSRAM by accident)</p></li>
+</ul>
+<p>This allows the interrupt to run while the cache is disabled, but comes at the cost of increased IRAM consumption.</p>
+<p>There is another Kconfig option <a class="reference internal" href="../kconfig.html#config-gptimer-ctrl-func-in-iram"><span class="std std-ref">CONFIG_GPTIMER_CTRL_FUNC_IN_IRAM</span></a> that can put commonly used IO control functions into IRAM as well. So, these functions can also be executable when the cache is disabled. These IO control functions are as follows:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#_CPPv413gptimer_start16gptimer_handle_t" title="gptimer_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_start()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv412gptimer_stop16gptimer_handle_t" title="gptimer_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_stop()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv421gptimer_get_raw_count16gptimer_handle_tP8uint64_t" title="gptimer_get_raw_count"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_get_raw_count()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv421gptimer_set_raw_count16gptimer_handle_t8uint64_t" title="gptimer_set_raw_count"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_set_raw_count()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv424gptimer_set_alarm_action16gptimer_handle_tPK22gptimer_alarm_config_t" title="gptimer_set_alarm_action"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_set_alarm_action()</span></code></a></p></li>
+</ul>
+</section>
+<section id="thread-safety">
+<span id="gptimer-thread-safety"></span><h3>Thread Safety<a class="headerlink" href="#thread-safety" title="Permalink to this heading"></a></h3>
+<p>All the APIs provided by the driver are guaranteed to be thread safe, which means you can call them from different RTOS tasks without protection by extra locks. The following functions are allowed to run under ISR context.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#_CPPv413gptimer_start16gptimer_handle_t" title="gptimer_start"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_start()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv412gptimer_stop16gptimer_handle_t" title="gptimer_stop"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_stop()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv421gptimer_get_raw_count16gptimer_handle_tP8uint64_t" title="gptimer_get_raw_count"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_get_raw_count()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv421gptimer_set_raw_count16gptimer_handle_t8uint64_t" title="gptimer_set_raw_count"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_set_raw_count()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv426gptimer_get_captured_count16gptimer_handle_tP8uint64_t" title="gptimer_get_captured_count"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_get_captured_count()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv424gptimer_set_alarm_action16gptimer_handle_tPK22gptimer_alarm_config_t" title="gptimer_set_alarm_action"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_set_alarm_action()</span></code></a></p></li>
+</ul>
+</section>
+<section id="kconfig-options">
+<span id="gptimer-kconfig-options"></span><h3>Kconfig Options<a class="headerlink" href="#kconfig-options" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../kconfig.html#config-gptimer-ctrl-func-in-iram"><span class="std std-ref">CONFIG_GPTIMER_CTRL_FUNC_IN_IRAM</span></a> controls where to place the GPTimer control functions (IRAM or flash).</p></li>
+<li><p><a class="reference internal" href="../kconfig.html#config-gptimer-isr-handler-in-iram"><span class="std std-ref">CONFIG_GPTIMER_ISR_HANDLER_IN_IRAM</span></a> controls where to place the GPTimer ISR handler (IRAM or flash).</p></li>
+<li><p><a class="reference internal" href="../kconfig.html#config-gptimer-isr-iram-safe"><span class="std std-ref">CONFIG_GPTIMER_ISR_IRAM_SAFE</span></a> controls whether the default ISR handler should be masked when the cache is disabled, see Section <a class="reference internal" href="#gptimer-iram-safe"><span class="std std-ref">IRAM Safe</span></a> for more information.</p></li>
+<li><p><a class="reference internal" href="../kconfig.html#config-gptimer-enable-debug-log"><span class="std std-ref">CONFIG_GPTIMER_ENABLE_DEBUG_LOG</span></a> is used to enabled the debug log output. Enable this option will increase the firmware binary size.</p></li>
+</ul>
+</section>
+</section>
+<section id="application-examples">
+<h2>Application Examples<a class="headerlink" href="#application-examples" title="Permalink to this heading"></a></h2>
+<p><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/espressif/esp-idf/tree/v5.4.2/examples/peripherals/timer_group/gptimer">peripherals/timer_group/gptimer</a> demonstrates how to use the general purpose timer APIs on ESP SOC chip to generate periodic alarm events and manage different alarm actions.</p></li>
+<li><p><a class="reference external" href="https://github.com/espressif/esp-idf/tree/v5.4.2/examples/peripherals/timer_group/wiegand_interface">peripherals/timer_group/wiegand_interface</a> uses two timers (one in one-shot mode and another in periodic mode) to trigger the interrupt and change the output state of the GPIO in the interrupt.</p></li>
+</ul>
+</p>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading"></a></h2>
+<section id="header-file">
+<h3>Header File<a class="headerlink" href="#header-file" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p><a class="reference external" href="https://github.com/espressif/esp-idf/blob/v5.4.2/components/esp_driver_gptimer/include/driver/gptimer.h">components/esp_driver_gptimer/include/driver/gptimer.h</a></p></li>
+<li><p>This header file can be included with:</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;driver/gptimer.h&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>This header file is a part of the API provided by the <code class="docutils literal notranslate"><span class="pre">esp_driver_gptimer</span></code> component. To declare that your component depends on <code class="docutils literal notranslate"><span class="pre">esp_driver_gptimer</span></code>, add the following to your CMakeLists.txt:</p>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>REQUIRES esp_driver_gptimer
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>PRIV_REQUIRES esp_driver_gptimer
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417gptimer_new_timerPK16gptimer_config_tP16gptimer_handle_t">
+<span id="_CPPv317gptimer_new_timerPK16gptimer_config_tP16gptimer_handle_t"></span><span id="_CPPv217gptimer_new_timerPK16gptimer_config_tP16gptimer_handle_t"></span><span id="gptimer_new_timer__gptimer_config_tCP.gptimer_handle_tP"></span><span class="target" id="gptimer_8h_1a0ff72b8504c944a4db511e0c71e50922"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_new_timer</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv416gptimer_config_t" title="gptimer_config_t"><span class="n"><span class="pre">gptimer_config_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">config</span></span>, <a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ret_timer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417gptimer_new_timerPK16gptimer_config_tP16gptimer_handle_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a new General Purpose Timer, and return the handle. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The newly created timer is put in the &quot;init&quot; state.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> -- <strong>[in]</strong> GPTimer configuration </p></li>
+<li><p><strong>ret_timer</strong> -- <strong>[out]</strong> Returned timer handle </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Create GPTimer successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Create GPTimer failed because of invalid argument</p></li>
+<li><p>ESP_ERR_NO_MEM: Create GPTimer failed because out of memory</p></li>
+<li><p>ESP_ERR_NOT_FOUND: Create GPTimer failed because all hardware timers are used up and no more free one</p></li>
+<li><p>ESP_FAIL: Create GPTimer failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417gptimer_del_timer16gptimer_handle_t">
+<span id="_CPPv317gptimer_del_timer16gptimer_handle_t"></span><span id="_CPPv217gptimer_del_timer16gptimer_handle_t"></span><span id="gptimer_del_timer__gptimer_handle_t"></span><span class="target" id="gptimer_8h_1af72c98ee800ee39760b3cfea931aec2f"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_del_timer</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">timer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417gptimer_del_timer16gptimer_handle_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Delete the GPTimer handle. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A timer must be in the &quot;init&quot; state before it can be deleted.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>timer</strong> -- <strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Delete GPTimer successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Delete GPTimer failed because of invalid argument</p></li>
+<li><p>ESP_ERR_INVALID_STATE: Delete GPTimer failed because the timer is not in init state</p></li>
+<li><p>ESP_FAIL: Delete GPTimer failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421gptimer_set_raw_count16gptimer_handle_t8uint64_t">
+<span id="_CPPv321gptimer_set_raw_count16gptimer_handle_t8uint64_t"></span><span id="_CPPv221gptimer_set_raw_count16gptimer_handle_t8uint64_t"></span><span id="gptimer_set_raw_count__gptimer_handle_t.uint64_t"></span><span class="target" id="gptimer_8h_1ac6e4ec0727e7badad85bfdc545ac89f1"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_set_raw_count</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">timer</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421gptimer_set_raw_count16gptimer_handle_t8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set GPTimer raw count value. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When updating the raw count of an active timer, the timer will immediately start counting from the new value. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is allowed to run within ISR context </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">CONFIG_GPTIMER_CTRL_FUNC_IN_IRAM</span></code> is enabled, this function will be placed in the IRAM by linker, makes it possible to execute even when the Flash Cache is disabled.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timer</strong> -- <strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p></li>
+<li><p><strong>value</strong> -- <strong>[in]</strong> Count value to be set </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Set GPTimer raw count value successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Set GPTimer raw count value failed because of invalid argument</p></li>
+<li><p>ESP_FAIL: Set GPTimer raw count value failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421gptimer_get_raw_count16gptimer_handle_tP8uint64_t">
+<span id="_CPPv321gptimer_get_raw_count16gptimer_handle_tP8uint64_t"></span><span id="_CPPv221gptimer_get_raw_count16gptimer_handle_tP8uint64_t"></span><span id="gptimer_get_raw_count__gptimer_handle_t.uint64_tP"></span><span class="target" id="gptimer_8h_1a9918318aa20cf9347988c9584e61a00a"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_get_raw_count</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">timer</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421gptimer_get_raw_count16gptimer_handle_tP8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get GPTimer raw count value. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function will trigger a software capture event and then return the captured count value. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>With the raw count value and the resolution returned from <code class="docutils literal notranslate"><span class="pre">gptimer_get_resolution</span></code>, you can convert the count value into seconds. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is allowed to run within ISR context </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">CONFIG_GPTIMER_CTRL_FUNC_IN_IRAM</span></code> is enabled, this function will be placed in the IRAM by linker, makes it possible to execute even when the Flash Cache is disabled.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timer</strong> -- <strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p></li>
+<li><p><strong>value</strong> -- <strong>[out]</strong> Returned GPTimer count value </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Get GPTimer raw count value successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Get GPTimer raw count value failed because of invalid argument</p></li>
+<li><p>ESP_FAIL: Get GPTimer raw count value failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422gptimer_get_resolution16gptimer_handle_tP8uint32_t">
+<span id="_CPPv322gptimer_get_resolution16gptimer_handle_tP8uint32_t"></span><span id="_CPPv222gptimer_get_resolution16gptimer_handle_tP8uint32_t"></span><span id="gptimer_get_resolution__gptimer_handle_t.uint32_tP"></span><span class="target" id="gptimer_8h_1abc88ca9d6b8d9e8799fc9934a6cd02a0"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_get_resolution</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">timer</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">out_resolution</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422gptimer_get_resolution16gptimer_handle_tP8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Return the real resolution of the timer. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>usually the timer resolution is same as what you configured in the <code class="docutils literal notranslate"><a class="reference internal" href="#structgptimer__config__t_1ab45737a731f41afe4faa54f02b6e0a0a"><span class="std std-ref"><span class="pre">gptimer_config_t::resolution_hz</span></span></a></code>, but some unstable clock source (e.g. RC_FAST) will do a calibration, the real resolution can be different from the configured one.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timer</strong> -- <strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p></li>
+<li><p><strong>out_resolution</strong> -- <strong>[out]</strong> Returned timer resolution, in Hz </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Get GPTimer resolution successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Get GPTimer resolution failed because of invalid argument</p></li>
+<li><p>ESP_FAIL: Get GPTimer resolution failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426gptimer_get_captured_count16gptimer_handle_tP8uint64_t">
+<span id="_CPPv326gptimer_get_captured_count16gptimer_handle_tP8uint64_t"></span><span id="_CPPv226gptimer_get_captured_count16gptimer_handle_tP8uint64_t"></span><span id="gptimer_get_captured_count__gptimer_handle_t.uint64_tP"></span><span class="target" id="gptimer_8h_1aefef03ab3c05d6e1b76200fa99b4b474"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_get_captured_count</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">timer</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426gptimer_get_captured_count16gptimer_handle_tP8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get GPTimer captured count value. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Different from <code class="docutils literal notranslate"><span class="pre">gptimer_get_raw_count</span></code>, this function won't trigger a software capture event. It just returns the last captured count value. It's especially useful when the capture has already been triggered by an external event and you want to read the captured value. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is allowed to run within ISR context </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">CONFIG_GPTIMER_CTRL_FUNC_IN_IRAM</span></code> is enabled, this function will be placed in the IRAM by linker, makes it possible to execute even when the Flash Cache is disabled.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timer</strong> -- <strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p></li>
+<li><p><strong>value</strong> -- <strong>[out]</strong> Returned captured count value </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Get GPTimer captured count value successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Get GPTimer captured count value failed because of invalid argument</p></li>
+<li><p>ESP_FAIL: Get GPTimer captured count value failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv432gptimer_register_event_callbacks16gptimer_handle_tPK25gptimer_event_callbacks_tPv">
+<span id="_CPPv332gptimer_register_event_callbacks16gptimer_handle_tPK25gptimer_event_callbacks_tPv"></span><span id="_CPPv232gptimer_register_event_callbacks16gptimer_handle_tPK25gptimer_event_callbacks_tPv"></span><span id="gptimer_register_event_callbacks__gptimer_handle_t.gptimer_event_callbacks_tCP.voidP"></span><span class="target" id="gptimer_8h_1ace2479ceae75e79c2730d8ef0552642d"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_register_event_callbacks</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">timer</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv425gptimer_event_callbacks_t" title="gptimer_event_callbacks_t"><span class="n"><span class="pre">gptimer_event_callbacks_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cbs</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">user_data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv432gptimer_register_event_callbacks16gptimer_handle_tPK25gptimer_event_callbacks_tPv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set callbacks for GPTimer. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>User registered callbacks are expected to be runnable within ISR context </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The first call to this function needs to be before the call to <code class="docutils literal notranslate"><span class="pre">gptimer_enable</span></code></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>User can deregister a previously registered callback by calling this function and setting the callback member in the <code class="docutils literal notranslate"><span class="pre">cbs</span></code> structure to NULL.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timer</strong> -- <strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p></li>
+<li><p><strong>cbs</strong> -- <strong>[in]</strong> Group of callback functions </p></li>
+<li><p><strong>user_data</strong> -- <strong>[in]</strong> User data, which will be passed to callback functions directly </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Set event callbacks successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Set event callbacks failed because of invalid argument</p></li>
+<li><p>ESP_ERR_INVALID_STATE: Set event callbacks failed because the timer is not in init state</p></li>
+<li><p>ESP_FAIL: Set event callbacks failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424gptimer_set_alarm_action16gptimer_handle_tPK22gptimer_alarm_config_t">
+<span id="_CPPv324gptimer_set_alarm_action16gptimer_handle_tPK22gptimer_alarm_config_t"></span><span id="_CPPv224gptimer_set_alarm_action16gptimer_handle_tPK22gptimer_alarm_config_t"></span><span id="gptimer_set_alarm_action__gptimer_handle_t.gptimer_alarm_config_tCP"></span><span class="target" id="gptimer_8h_1a33aa960104b3358d5ae87e320770c8fd"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_set_alarm_action</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">timer</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422gptimer_alarm_config_t" title="gptimer_alarm_config_t"><span class="n"><span class="pre">gptimer_alarm_config_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">config</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424gptimer_set_alarm_action16gptimer_handle_tPK22gptimer_alarm_config_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set alarm event actions for GPTimer. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is allowed to run within ISR context, so you can update new alarm action immediately in any ISR callback. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">CONFIG_GPTIMER_CTRL_FUNC_IN_IRAM</span></code> is enabled, this function will be placed in the IRAM by linker, makes it possible to execute even when the Flash Cache is disabled. In this case, please also ensure the <code class="docutils literal notranslate"><a class="reference internal" href="#structgptimer__alarm__config__t"><span class="std std-ref"><span class="pre">gptimer_alarm_config_t</span></span></a></code> instance is placed in the static data section instead of in the read-only data section. e.g.: <code class="docutils literal notranslate"><span class="pre">static</span> <a class="reference internal" href="#structgptimer__alarm__config__t"><span class="std std-ref"><span class="pre">gptimer_alarm_config_t</span></span></a> <span class="pre">alarm_config</span> <span class="pre">=</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">};</span></code></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timer</strong> -- <strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p></li>
+<li><p><strong>config</strong> -- <strong>[in]</strong> Alarm configuration, especially, set config to NULL means disabling the alarm function </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Set alarm action for GPTimer successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Set alarm action for GPTimer failed because of invalid argument</p></li>
+<li><p>ESP_FAIL: Set alarm action for GPTimer failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414gptimer_enable16gptimer_handle_t">
+<span id="_CPPv314gptimer_enable16gptimer_handle_t"></span><span id="_CPPv214gptimer_enable16gptimer_handle_t"></span><span id="gptimer_enable__gptimer_handle_t"></span><span class="target" id="gptimer_8h_1a7433ec78be15278588d5ce83bc446cb9"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_enable</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">timer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414gptimer_enable16gptimer_handle_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Enable GPTimer. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function will transit the timer state from &quot;init&quot; to &quot;enable&quot;. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function will enable the interrupt service, if it's lazy installed in <code class="docutils literal notranslate"><span class="pre">gptimer_register_event_callbacks</span></code>. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function will acquire a PM lock, if a specific source clock (e.g. APB) is selected in the <code class="docutils literal notranslate"><a class="reference internal" href="#structgptimer__config__t"><span class="std std-ref"><span class="pre">gptimer_config_t</span></span></a></code>, while <code class="docutils literal notranslate"><span class="pre">CONFIG_PM_ENABLE</span></code> is enabled. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Enable a timer doesn't mean to start it. See also <code class="docutils literal notranslate"><span class="pre">gptimer_start</span></code> for how to make the timer start counting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>timer</strong> -- <strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Enable GPTimer successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Enable GPTimer failed because of invalid argument</p></li>
+<li><p>ESP_ERR_INVALID_STATE: Enable GPTimer failed because the timer is already enabled</p></li>
+<li><p>ESP_FAIL: Enable GPTimer failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415gptimer_disable16gptimer_handle_t">
+<span id="_CPPv315gptimer_disable16gptimer_handle_t"></span><span id="_CPPv215gptimer_disable16gptimer_handle_t"></span><span id="gptimer_disable__gptimer_handle_t"></span><span class="target" id="gptimer_8h_1aed5b16068e124dc5f349c8df43af0cae"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_disable</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">timer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415gptimer_disable16gptimer_handle_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Disable GPTimer. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function will transit the timer state from &quot;enable&quot; to &quot;init&quot;. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function will disable the interrupt service if it's installed. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function will release the PM lock if it's acquired in the <code class="docutils literal notranslate"><span class="pre">gptimer_enable</span></code>. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Disable a timer doesn't mean to stop it. See also <code class="docutils literal notranslate"><span class="pre">gptimer_stop</span></code> for how to make the timer stop counting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>timer</strong> -- <strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Disable GPTimer successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Disable GPTimer failed because of invalid argument</p></li>
+<li><p>ESP_ERR_INVALID_STATE: Disable GPTimer failed because the timer is not enabled yet</p></li>
+<li><p>ESP_FAIL: Disable GPTimer failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413gptimer_start16gptimer_handle_t">
+<span id="_CPPv313gptimer_start16gptimer_handle_t"></span><span id="_CPPv213gptimer_start16gptimer_handle_t"></span><span id="gptimer_start__gptimer_handle_t"></span><span class="target" id="gptimer_8h_1a1f37cb270dd5ca60f192e7fd21105c66"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_start</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">timer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413gptimer_start16gptimer_handle_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Start GPTimer (internal counter starts counting) </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function will transit the timer state from &quot;enable&quot; to &quot;run&quot;. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is allowed to run within ISR context </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">CONFIG_GPTIMER_CTRL_FUNC_IN_IRAM</span></code> is enabled, this function will be placed in the IRAM by linker, makes it possible to execute even when the Flash Cache is disabled.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>timer</strong> -- <strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Start GPTimer successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Start GPTimer failed because of invalid argument</p></li>
+<li><p>ESP_ERR_INVALID_STATE: Start GPTimer failed because the timer is not enabled or is already in running</p></li>
+<li><p>ESP_FAIL: Start GPTimer failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412gptimer_stop16gptimer_handle_t">
+<span id="_CPPv312gptimer_stop16gptimer_handle_t"></span><span id="_CPPv212gptimer_stop16gptimer_handle_t"></span><span id="gptimer_stop__gptimer_handle_t"></span><span class="target" id="gptimer_8h_1a98ee619e279f647baea168716e7da537"></span><a class="reference internal" href="../system/esp_err.html#_CPPv49esp_err_t" title="esp_err_t"><span class="n"><span class="pre">esp_err_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_stop</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">timer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412gptimer_stop16gptimer_handle_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Stop GPTimer (internal counter stops counting) </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function will transit the timer state from &quot;run&quot; to &quot;enable&quot;. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is allowed to run within ISR context </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">CONFIG_GPTIMER_CTRL_FUNC_IN_IRAM</span></code> is enabled, this function will be placed in the IRAM by linker, makes it possible to execute even when the Flash Cache is disabled.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>timer</strong> -- <strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>ESP_OK: Stop GPTimer successfully</p></li>
+<li><p>ESP_ERR_INVALID_ARG: Stop GPTimer failed because of invalid argument</p></li>
+<li><p>ESP_ERR_INVALID_STATE: Stop GPTimer failed because the timer is not in running.</p></li>
+<li><p>ESP_FAIL: Stop GPTimer failed because of other error </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="structures">
+<h3>Structures<a class="headerlink" href="#structures" title="Permalink to this heading"></a></h3>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv416gptimer_config_t">
+<span id="_CPPv316gptimer_config_t"></span><span id="_CPPv216gptimer_config_t"></span><span id="gptimer_config_t"></span><span class="target" id="structgptimer__config__t"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_config_t</span></span></span><a class="headerlink" href="#_CPPv416gptimer_config_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>General Purpose Timer configuration. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16gptimer_config_t7clk_srcE">
+<span id="_CPPv3N16gptimer_config_t7clk_srcE"></span><span id="_CPPv2N16gptimer_config_t7clk_srcE"></span><span id="gptimer_config_t::clk_src__gptimer_clock_source_t"></span><span class="target" id="structgptimer__config__t_1a489540c3cfe8cfa9ce78f378d99697a4"></span><a class="reference internal" href="#_CPPv422gptimer_clock_source_t" title="gptimer_clock_source_t"><span class="n"><span class="pre">gptimer_clock_source_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clk_src</span></span></span><a class="headerlink" href="#_CPPv4N16gptimer_config_t7clk_srcE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>GPTimer clock source </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16gptimer_config_t9directionE">
+<span id="_CPPv3N16gptimer_config_t9directionE"></span><span id="_CPPv2N16gptimer_config_t9directionE"></span><span id="gptimer_config_t::direction__gptimer_count_direction_t"></span><span class="target" id="structgptimer__config__t_1ac0233e35d8512519d14330af63eb8ca5"></span><a class="reference internal" href="#_CPPv425gptimer_count_direction_t" title="gptimer_count_direction_t"><span class="n"><span class="pre">gptimer_count_direction_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">direction</span></span></span><a class="headerlink" href="#_CPPv4N16gptimer_config_t9directionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Count direction </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16gptimer_config_t13resolution_hzE">
+<span id="_CPPv3N16gptimer_config_t13resolution_hzE"></span><span id="_CPPv2N16gptimer_config_t13resolution_hzE"></span><span id="gptimer_config_t::resolution_hz__uint32_t"></span><span class="target" id="structgptimer__config__t_1ab45737a731f41afe4faa54f02b6e0a0a"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">resolution_hz</span></span></span><a class="headerlink" href="#_CPPv4N16gptimer_config_t13resolution_hzE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Counter resolution (working frequency) in Hz, hence, the step size of each count tick equals to (1 / resolution_hz) seconds </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16gptimer_config_t13intr_priorityE">
+<span id="_CPPv3N16gptimer_config_t13intr_priorityE"></span><span id="_CPPv2N16gptimer_config_t13intr_priorityE"></span><span id="gptimer_config_t::intr_priority__i"></span><span class="target" id="structgptimer__config__t_1aac05c12ef33dbd5280309f63509d5819"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">intr_priority</span></span></span><a class="headerlink" href="#_CPPv4N16gptimer_config_t13intr_priorityE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>GPTimer interrupt priority, if set to 0, the driver will try to allocate an interrupt with a relative low priority (1,2,3) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16gptimer_config_t11intr_sharedE">
+<span id="_CPPv3N16gptimer_config_t11intr_sharedE"></span><span id="_CPPv2N16gptimer_config_t11intr_sharedE"></span><span id="gptimer_config_t::intr_shared__uint32_t"></span><span class="target" id="structgptimer__config__t_1aaf29a3b38a31bcf3a36176d8a8862eda"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">intr_shared</span></span></span><a class="headerlink" href="#_CPPv4N16gptimer_config_t11intr_sharedE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set true, the timer interrupt number can be shared with other peripherals </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16gptimer_config_t8allow_pdE">
+<span id="_CPPv3N16gptimer_config_t8allow_pdE"></span><span id="_CPPv2N16gptimer_config_t8allow_pdE"></span><span id="gptimer_config_t::allow_pd__uint32_t"></span><span class="target" id="structgptimer__config__t_1a0f6094bc7901ada43860f8acda13962a"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allow_pd</span></span></span><a class="headerlink" href="#_CPPv4N16gptimer_config_t8allow_pdE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>If set, driver allows the power domain to be powered off when system enters sleep mode. This can save power, but at the expense of more RAM being consumed to save register context. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16gptimer_config_t19backup_before_sleepE">
+<span id="_CPPv3N16gptimer_config_t19backup_before_sleepE"></span><span id="_CPPv2N16gptimer_config_t19backup_before_sleepE"></span><span id="gptimer_config_t::backup_before_sleep__uint32_t"></span><span class="target" id="structgptimer__config__t_1a2278e10ecb4d5be5801581df6b641609"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">backup_before_sleep</span></span></span><a class="headerlink" href="#_CPPv4N16gptimer_config_t19backup_before_sleepE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><dl>
+<dt class="sig sig-object cpp">
+<em><span class="pre">Deprecated:</span></em></dt>
+<dd><p>, same meaning as allow_pd </p>
+</dd></dl>
+
+</p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16gptimer_config_t5flagsE">
+<span id="_CPPv3N16gptimer_config_t5flagsE"></span><span id="_CPPv2N16gptimer_config_t5flagsE"></span><span id="gptimer_config_t::flags__gptimer_config_t"></span><span class="target" id="structgptimer__config__t_1a92788ac9089f13a67e00b7b40b14dc8d"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv416gptimer_config_t" title="gptimer_config_t"><span class="n"><span class="pre">gptimer_config_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">flags</span></span></span><a class="headerlink" href="#_CPPv4N16gptimer_config_t5flagsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>GPTimer config flags </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv425gptimer_event_callbacks_t">
+<span id="_CPPv325gptimer_event_callbacks_t"></span><span id="_CPPv225gptimer_event_callbacks_t"></span><span id="gptimer_event_callbacks_t"></span><span class="target" id="structgptimer__event__callbacks__t"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_event_callbacks_t</span></span></span><a class="headerlink" href="#_CPPv425gptimer_event_callbacks_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Group of supported GPTimer callbacks. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The callbacks are all running under ISR environment </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When CONFIG_GPTIMER_ISR_IRAM_SAFE is enabled, the callback itself and functions called by it should be placed in IRAM. </p>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N25gptimer_event_callbacks_t8on_alarmE">
+<span id="_CPPv3N25gptimer_event_callbacks_t8on_alarmE"></span><span id="_CPPv2N25gptimer_event_callbacks_t8on_alarmE"></span><span id="gptimer_event_callbacks_t::on_alarm__gptimer_alarm_cb_t"></span><span class="target" id="structgptimer__event__callbacks__t_1a1968544b0fb6cd281e0739e4d9bcf1d2"></span><a class="reference internal" href="#_CPPv418gptimer_alarm_cb_t" title="gptimer_alarm_cb_t"><span class="n"><span class="pre">gptimer_alarm_cb_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">on_alarm</span></span></span><a class="headerlink" href="#_CPPv4N25gptimer_event_callbacks_t8on_alarmE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Timer alarm callback </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv422gptimer_alarm_config_t">
+<span id="_CPPv322gptimer_alarm_config_t"></span><span id="_CPPv222gptimer_alarm_config_t"></span><span id="gptimer_alarm_config_t"></span><span class="target" id="structgptimer__alarm__config__t"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_alarm_config_t</span></span></span><a class="headerlink" href="#_CPPv422gptimer_alarm_config_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>General Purpose Timer alarm configuration. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N22gptimer_alarm_config_t11alarm_countE">
+<span id="_CPPv3N22gptimer_alarm_config_t11alarm_countE"></span><span id="_CPPv2N22gptimer_alarm_config_t11alarm_countE"></span><span id="gptimer_alarm_config_t::alarm_count__uint64_t"></span><span class="target" id="structgptimer__alarm__config__t_1af68accaffe6b5cb77d37c2d83cc35587"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">alarm_count</span></span></span><a class="headerlink" href="#_CPPv4N22gptimer_alarm_config_t11alarm_countE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Alarm target count value </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N22gptimer_alarm_config_t12reload_countE">
+<span id="_CPPv3N22gptimer_alarm_config_t12reload_countE"></span><span id="_CPPv2N22gptimer_alarm_config_t12reload_countE"></span><span id="gptimer_alarm_config_t::reload_count__uint64_t"></span><span class="target" id="structgptimer__alarm__config__t_1acfd532d79685069019f06b7c7ca5084b"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reload_count</span></span></span><a class="headerlink" href="#_CPPv4N22gptimer_alarm_config_t12reload_countE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Alarm reload count value, effect only when <code class="docutils literal notranslate"><span class="pre">auto_reload_on_alarm</span></code> is set to true </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N22gptimer_alarm_config_t20auto_reload_on_alarmE">
+<span id="_CPPv3N22gptimer_alarm_config_t20auto_reload_on_alarmE"></span><span id="_CPPv2N22gptimer_alarm_config_t20auto_reload_on_alarmE"></span><span id="gptimer_alarm_config_t::auto_reload_on_alarm__uint32_t"></span><span class="target" id="structgptimer__alarm__config__t_1a46bd9d255c70f5c7ef47fe994a9bcf01"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">auto_reload_on_alarm</span></span></span><a class="headerlink" href="#_CPPv4N22gptimer_alarm_config_t20auto_reload_on_alarmE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Reload the count value by hardware, immediately at the alarm event </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N22gptimer_alarm_config_t5flagsE">
+<span id="_CPPv3N22gptimer_alarm_config_t5flagsE"></span><span id="_CPPv2N22gptimer_alarm_config_t5flagsE"></span><span id="gptimer_alarm_config_t::flags__gptimer_alarm_config_t"></span><span class="target" id="structgptimer__alarm__config__t_1ad17229b406557ea5fa9f9aa23e9c960a"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv422gptimer_alarm_config_t" title="gptimer_alarm_config_t"><span class="n"><span class="pre">gptimer_alarm_config_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">flags</span></span></span><a class="headerlink" href="#_CPPv4N22gptimer_alarm_config_t5flagsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Alarm config flags </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+<section id="id7">
+<h3>Header File<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p><a class="reference external" href="https://github.com/espressif/esp-idf/blob/v5.4.2/components/esp_driver_gptimer/include/driver/gptimer_types.h">components/esp_driver_gptimer/include/driver/gptimer_types.h</a></p></li>
+<li><p>This header file can be included with:</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;driver/gptimer_types.h&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>This header file is a part of the API provided by the <code class="docutils literal notranslate"><span class="pre">esp_driver_gptimer</span></code> component. To declare that your component depends on <code class="docutils literal notranslate"><span class="pre">esp_driver_gptimer</span></code>, add the following to your CMakeLists.txt:</p>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>REQUIRES esp_driver_gptimer
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>PRIV_REQUIRES esp_driver_gptimer
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="id8">
+<h3>Structures<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv426gptimer_alarm_event_data_t">
+<span id="_CPPv326gptimer_alarm_event_data_t"></span><span id="_CPPv226gptimer_alarm_event_data_t"></span><span id="gptimer_alarm_event_data_t"></span><span class="target" id="structgptimer__alarm__event__data__t"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_alarm_event_data_t</span></span></span><a class="headerlink" href="#_CPPv426gptimer_alarm_event_data_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>GPTimer alarm event data. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26gptimer_alarm_event_data_t11count_valueE">
+<span id="_CPPv3N26gptimer_alarm_event_data_t11count_valueE"></span><span id="_CPPv2N26gptimer_alarm_event_data_t11count_valueE"></span><span id="gptimer_alarm_event_data_t::count_value__uint64_t"></span><span class="target" id="structgptimer__alarm__event__data__t_1afbd042aa4729bf41e138f62feffa75f8"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">count_value</span></span></span><a class="headerlink" href="#_CPPv4N26gptimer_alarm_event_data_t11count_valueE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Current count value </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26gptimer_alarm_event_data_t11alarm_valueE">
+<span id="_CPPv3N26gptimer_alarm_event_data_t11alarm_valueE"></span><span id="_CPPv2N26gptimer_alarm_event_data_t11alarm_valueE"></span><span id="gptimer_alarm_event_data_t::alarm_value__uint64_t"></span><span class="target" id="structgptimer__alarm__event__data__t_1abd2dd0e784b84ac7469617f1dd9ddc75"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">alarm_value</span></span></span><a class="headerlink" href="#_CPPv4N26gptimer_alarm_event_data_t11alarm_valueE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Current alarm value </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+<section id="type-definitions">
+<h3>Type Definitions<a class="headerlink" href="#type-definitions" title="Permalink to this heading"></a></h3>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv416gptimer_handle_t">
+<span id="_CPPv316gptimer_handle_t"></span><span id="_CPPv216gptimer_handle_t"></span><span id="gptimer_handle_t"></span><span class="target" id="gptimer__types_8h_1ae84104d2b5894010bdb6e87cb1be5331"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">gptimer_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_handle_t</span></span></span><a class="headerlink" href="#_CPPv416gptimer_handle_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Type of General Purpose Timer handle. </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv418gptimer_alarm_cb_t">
+<span id="_CPPv318gptimer_alarm_cb_t"></span><span id="_CPPv218gptimer_alarm_cb_t"></span><span id="gptimer_alarm_cb_t"></span><span class="target" id="gptimer__types_8h_1a0d2f3e486e80de82bc76a624ab443a86"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_alarm_cb_t</span></span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv416gptimer_handle_t" title="gptimer_handle_t"><span class="n"><span class="pre">gptimer_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">timer</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv426gptimer_alarm_event_data_t" title="gptimer_alarm_event_data_t"><span class="n"><span class="pre">gptimer_alarm_event_data_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">edata</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">user_ctx</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv418gptimer_alarm_cb_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Timer alarm callback prototype. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Param timer<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>[in]</strong> Timer handle created by <code class="docutils literal notranslate"><span class="pre">gptimer_new_timer</span></code></p>
+</dd>
+<dt class="field-even">Param edata<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>[in]</strong> Alarm event data, fed by driver </p>
+</dd>
+<dt class="field-odd">Param user_ctx<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>[in]</strong> User data, passed from <code class="docutils literal notranslate"><span class="pre">gptimer_register_event_callbacks</span></code></p>
+</dd>
+<dt class="field-even">Return<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether a high priority task has been waken up by this function </p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="id9">
+<h3>Header File<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p><a class="reference external" href="https://github.com/espressif/esp-idf/blob/v5.4.2/components/hal/include/hal/timer_types.h">components/hal/include/hal/timer_types.h</a></p></li>
+<li><p>This header file can be included with:</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;hal/timer_types.h&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="id10">
+<h3>Type Definitions<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv422gptimer_clock_source_t">
+<span id="_CPPv322gptimer_clock_source_t"></span><span id="_CPPv222gptimer_clock_source_t"></span><span id="gptimer_clock_source_t"></span><span class="target" id="timer__types_8h_1abd7f252ae4b2c7890f7db59aa7e10da7"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><a class="reference internal" href="clk_tree.html#_CPPv428soc_periph_gptimer_clk_src_t" title="soc_periph_gptimer_clk_src_t"><span class="n"><span class="pre">soc_periph_gptimer_clk_src_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_clock_source_t</span></span></span><a class="headerlink" href="#_CPPv422gptimer_clock_source_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>GPTimer clock source. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>User should select the clock source based on the power and resolution requirement </p>
+</div>
+</dd></dl>
+
+</section>
+<section id="enumerations">
+<h3>Enumerations<a class="headerlink" href="#enumerations" title="Permalink to this heading"></a></h3>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv425gptimer_count_direction_t">
+<span id="_CPPv325gptimer_count_direction_t"></span><span id="_CPPv225gptimer_count_direction_t"></span><span class="target" id="timer__types_8h_1aaece2e8ea5450c2066f6e2fab59265b7"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gptimer_count_direction_t</span></span></span><a class="headerlink" href="#_CPPv425gptimer_count_direction_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>GPTimer count direction. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N25gptimer_count_direction_t18GPTIMER_COUNT_DOWNE">
+<span id="_CPPv3N25gptimer_count_direction_t18GPTIMER_COUNT_DOWNE"></span><span id="_CPPv2N25gptimer_count_direction_t18GPTIMER_COUNT_DOWNE"></span><span class="target" id="timer__types_8h_1aaece2e8ea5450c2066f6e2fab59265b7a42634b1683a307e62317e9340f191682"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GPTIMER_COUNT_DOWN</span></span></span><a class="headerlink" href="#_CPPv4N25gptimer_count_direction_t18GPTIMER_COUNT_DOWNE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Decrease count value </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N25gptimer_count_direction_t16GPTIMER_COUNT_UPE">
+<span id="_CPPv3N25gptimer_count_direction_t16GPTIMER_COUNT_UPE"></span><span id="_CPPv2N25gptimer_count_direction_t16GPTIMER_COUNT_UPE"></span><span class="target" id="timer__types_8h_1aaece2e8ea5450c2066f6e2fab59265b7a1496bf43eda840982e24ec64525f0637"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GPTIMER_COUNT_UP</span></span></span><a class="headerlink" href="#_CPPv4N25gptimer_count_direction_t16GPTIMER_COUNT_UPE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Increase count value </p>
+</dd></dl>
+
+</dd></dl>
+
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id11" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Different ESP chip series might have different numbers of GPTimer instances. For more details, please refer to <strong>ESP32 Technical Reference Manual</strong> &gt; Chapter <strong>Timer Group (TIMG)</strong> [<a class="reference external" href="https://www.espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf#timg">PDF</a>]. The driver does forbid you from applying for more timers, but it returns error when all available hardware resources are used up. Please always check the return value when doing resource allocation (e.g., <a class="reference internal" href="#_CPPv417gptimer_new_timerPK16gptimer_config_tP16gptimer_handle_t" title="gptimer_new_timer"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">gptimer_new_timer()</span></code></a>).</p>
+</aside>
+<aside class="footnote brackets" id="id12" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference internal" href="#_CPPv4N25gptimer_event_callbacks_t8on_alarmE" title="gptimer_event_callbacks_t::on_alarm"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">gptimer_event_callbacks_t::on_alarm</span></code></a> callback and the functions invoked by the callback should also be placed in IRAM, please take care of them by yourself.</p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+             <div class="articleComments">
+
+<style>
+    .expand-feedback-content {
+        display: none;
+    }
+    .click-like-or-dislike {
+        background-color: #d3d3d3;
+        pointer-events: none;
+    }
+</style>
+
+<script>
+    function submitFeedbackForm(user_likes_document) {
+        // Send to GA4 the user reaction
+        gtag('event', 'user_reaction', {
+            'user_likes_document': user_likes_document
+        });
+
+        if (user_likes_document === 1) {
+            document.querySelector('.like-btn').classList.add('click-like-or-dislike');
+            document.getElementById("expandContentLike").style.display = 'block';
+        } else {
+            document.querySelector('.dislike-btn').classList.add('click-like-or-dislike');
+            document.getElementById("expandContent").style.display = 'block';
+        }
+
+        document.querySelector('.like-btn').style.pointerEvents = 'none';
+        document.querySelector('.dislike-btn').style.pointerEvents = 'none';
+    }
+</script>
+
+<hr>
+
+<p style="text-align:center"><strong>Was this page helpful?</strong></p>
+<p style="text-align:center">
+    <button class="like-btn" onclick="submitFeedbackForm(1)">
+        <svg aria-hidden="true" focusable="false" class="color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path d="M8.834.066c.763.087 1.5.295 2.01.884.505.581.656 1.378.656 2.3 0 .467-.087 1.119-.157 1.637L11.328 5h1.422c.603 0 1.174.085 1.668.333.508.254.911.679 1.137 1.2.453.998.438 2.447.188 4.316l-.04.306c-.105.79-.195 1.473-.313 2.033-.131.63-.315 1.209-.668 1.672C13.97 15.847 12.706 16 11 16c-1.848 0-3.234-.333-4.388-.653-.165-.045-.323-.09-.475-.133-.658-.186-1.2-.34-1.725-.415A1.75 1.75 0 0 1 2.75 16h-1A1.75 1.75 0 0 1 0 14.25v-7.5C0 5.784.784 5 1.75 5h1a1.75 1.75 0 0 1 1.514.872c.258-.105.59-.268.918-.508C5.853 4.874 6.5 4.079 6.5 2.75v-.5c0-1.202.994-2.337 2.334-2.184ZM4.5 13.3c.705.088 1.39.284 2.072.478l.441.125c1.096.305 2.334.598 3.987.598 1.794 0 2.28-.223 2.528-.549.147-.193.276-.505.394-1.07.105-.502.188-1.124.295-1.93l.04-.3c.25-1.882.189-2.933-.068-3.497a.921.921 0 0 0-.442-.48c-.208-.104-.52-.174-.997-.174H11c-.686 0-1.295-.577-1.206-1.336.023-.192.05-.39.076-.586.065-.488.13-.97.13-1.328 0-.809-.144-1.15-.288-1.316-.137-.158-.402-.304-1.048-.378C8.357 1.521 8 1.793 8 2.25v.5c0 1.922-.978 3.128-1.933 3.825a5.831 5.831 0 0 1-1.567.81ZM2.75 6.5h-1a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+        </svg>
+    </button>
+    <button class="dislike-btn" onclick="submitFeedbackForm(0)">
+        <svg aria-hidden="true" focusable="false" class="" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path d="M7.083 15.986c-.763-.087-1.499-.295-2.011-.884-.504-.581-.655-1.378-.655-2.299 0-.468.087-1.12.157-1.638l.015-.112H3.167c-.603 0-1.174-.086-1.669-.334a2.415 2.415 0 0 1-1.136-1.2c-.454-.998-.438-2.447-.188-4.316l.04-.306C.32 4.108.41 3.424.526 2.864c.132-.63.316-1.209.669-1.672C1.947.205 3.211.053 4.917.053c1.848 0 3.234.332 4.388.652l.474.133c.658.187 1.201.341 1.726.415a1.75 1.75 0 0 1 1.662-1.2h1c.966 0 1.75.784 1.75 1.75v7.5a1.75 1.75 0 0 1-1.75 1.75h-1a1.75 1.75 0 0 1-1.514-.872c-.259.105-.59.268-.919.508-.671.491-1.317 1.285-1.317 2.614v.5c0 1.201-.994 2.336-2.334 2.183Zm4.334-13.232c-.706-.089-1.39-.284-2.072-.479l-.441-.125c-1.096-.304-2.335-.597-3.987-.597-1.794 0-2.28.222-2.529.548-.147.193-.275.505-.393 1.07-.105.502-.188 1.124-.295 1.93l-.04.3c-.25 1.882-.19 2.933.067 3.497a.923.923 0 0 0 .443.48c.208.104.52.175.997.175h1.75c.685 0 1.295.577 1.205 1.335-.022.192-.049.39-.075.586-.066.488-.13.97-.13 1.329 0 .808.144 1.15.288 1.316.137.157.401.303 1.048.377.307.035.664-.237.664-.693v-.5c0-1.922.978-3.127 1.932-3.825a5.878 5.878 0 0 1 1.568-.809Zm1.75 6.798h1a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25h-1a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25Z"></path>
+        </svg>
+    </button>
+</p>
+
+<div class="expand-feedback-content" id="expandContentLike">
+    <ul style="text-align:center">
+        <li>Thank you! We received your feedback.</li>
+        <li>If you have any comments, fill in <a href='https://www.espressif.com/en/company/documents/documentation_feedback?docId=4287&sections=General Purpose Timer (GPTimer) (api-reference/peripherals/gptimer)&version=esp32 v5.4.2 (v5.4.2)'>Espressif Documentation Feedback Form</a>.</li>
+    </ul>
+</div>
+
+<div class="expand-feedback-content" id="expandContent">
+    <ul style="text-align:center">
+        <li>We value your feedback.</li>
+        <li>Let us know how we can improve this page by filling in <a href='https://www.espressif.com/en/company/documents/documentation_feedback?docId=4287&sections=General Purpose Timer (GPTimer) (api-reference/peripherals/gptimer)&version=esp32 v5.4.2 (v5.4.2)'>Espressif Documentation Feedback Form</a>.</li>
+    </ul>
+</div>
+
+<br>
+
+
+             </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="gpio.html" class="btn btn-neutral float-left" title="GPIO &amp; RTC GPIO" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="i2c.html" class="btn btn-neutral float-right" title="Inter-Integrated Circuit (I2C)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016 - 2025, Espressif Systems (Shanghai) Co., Ltd.</p>
+  </div>
+
+  <ul class="footer">
+        <li>
+	    
+            
+            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/espressif/sphinx_idf_theme">theme</a>  based on <a href="https://github.com/readthedocs/sphinx_rtd_theme">Read the Docs Sphinx Theme</a>.
+         </li>
+    <li class="footer-aside">
+        <a href="../../esp-idf-en-v5.4.2.zip"> Download HTML</a>
+    </li>
+
+  </ul> 
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

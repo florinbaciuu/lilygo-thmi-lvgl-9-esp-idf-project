@@ -1,0 +1,5 @@
+# Ignoră folderul build
+build/
+.devcontainer/
+.DS_Store
+#Icon
