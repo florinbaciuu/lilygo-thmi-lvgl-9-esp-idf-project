@@ -1,33 +1,32 @@
 
 
 cmake_minimum_required(VERSION 3.16)
-  
 # --------------------------------------------------- #
-set(app_sources         "app_main.cpp" 
+set(app_sources         "app_main.cpp"
                         "init.cpp")
 # --------------------------------------------------- #
-set(app_include_dirs    "." 
+set(app_include_dirs    "."
                         "")
 # --------------------------------------------------- #
-set(app_requires        driver 
-                        fatfs 
-                        spi_flash 
-                        esp_driver_usb_serial_jtag 
-                        esp_lcd_touch_xpt2046 
-                        esp_lcd esp_lcd_touch 
-                        lvgl 
-                        esp_system 
-                        heap 
-                        esp_common 
-                        esp_psram 
+set(app_requires        driver
+                        fatfs
+                        spi_flash
+                        esp_driver_usb_serial_jtag
+                        esp_lcd esp_lcd_touch esp_lcd_touch_xpt2046 lvgl esp_lvgl_port
+                        esp_system
+                        heap
+                        esp_common
+                        esp_psram
                         esp_hw_support
-                        esp_lvgl_port
                         esp-file-iterator
                         button
                         ccomp_timer
                         fmt
                         cmake_utilities
-                        #esp32_display_panel
+                        pax-gfx
+                        terminal-emulator
+                        pl_uart pl_common pl_usb pl_nvs pl_usb tinyusb esp_tinyusb
+                        adafruit_gfx
                         )
 # --------------------------------------------------- #
 set(app_priv_requires   ${app_requires} 

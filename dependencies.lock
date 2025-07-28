@@ -11,6 +11,26 @@ dependencies:
       path: /Users/florinbaciu/Desktop/workspace/lilygo-thmi-lvgl-9-esp-idf-project/components/esp_lcd_touch
       type: local
     version: 1.1.2
+  esp_tinyusb:
+    dependencies: []
+    source:
+      path: /Users/florinbaciu/Desktop/workspace/lilygo-thmi-lvgl-9-esp-idf-project/components/esp_tinyusb
+      type: local
+    version: 1.7.6~1
+  espressif/tinyusb:
+    component_hash: 10703da2c3cd39a944711ee3d320c6dda54debabf13b4b933a7c90daf102372b
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    targets:
+    - esp32s2
+    - esp32s3
+    - esp32p4
+    version: 0.18.0~2
   idf:
     source:
       type: idf
@@ -22,11 +42,33 @@ dependencies:
       registry_url: https://components.espressif.com/
       type: service
     version: 9.3.0
+  pax-gfx:
+    dependencies: []
+    source:
+      path: /Users/florinbaciu/Desktop/workspace/lilygo-thmi-lvgl-9-esp-idf-project/components/pax-gfx
+      type: local
+    version: 2.0.1
+  pl_common:
+    dependencies: []
+    source:
+      path: /Users/florinbaciu/Desktop/workspace/lilygo-thmi-lvgl-9-esp-idf-project/components/pl_common
+      type: local
+    version: 1.2.2
+  tinyusb:
+    dependencies: []
+    source:
+      path: /Users/florinbaciu/Desktop/workspace/lilygo-thmi-lvgl-9-esp-idf-project/components/tinyusb
+      type: local
+    version: 0.18.0~2
 direct_dependencies:
 - espressif/cmake_utilities
 - espressif/esp_lcd_touch
+- espressif/esp_tinyusb
+- espressif/tinyusb
 - idf
 - lvgl/lvgl
-manifest_hash: ee7f6aecb86e1a58f2407f50d4e25305260227d72ad24d82a8d5bd8a93c89a74
+- plasmapper/pl_common
+- robotman2412/pax-gfx
+manifest_hash: b348a2b8d533602552089dad1e91930b272a33166272ab9cfc342767bdf14f36
 target: esp32s3
 version: 2.0.0
