@@ -116,7 +116,7 @@
 		//------------------------------------------------------------------
 		//Terminal FONT
 		//"terminal.integrated.fontFamily": "IBM Plex Mono",
-		//"terminal.integrated.fontFamily": "Consolas",
+		"terminal.integrated.fontFamily": "Consolas",
 		//"terminal.integrated.fontFamily": "JetBrains Mono",
 		//"terminal.integrated.fontFamily": "JetBrains Mono Regular",
 		//"terminal.integrated.fontFamily": "JetBrains Mono Light",
@@ -131,7 +131,7 @@
 		//"terminal.integrated.fontFamily": "Fira Code",
 		//"terminal.integrated.fontFamily": "Cousine",
 		//"terminal.integrated.fontFamily": "MonoLisa",
-		"terminal.integrated.fontFamily": "Roboto Mono",
+		//"terminal.integrated.fontFamily": "Roboto Mono",
 		//"terminal.integrated.fontFamily": "Operator Mono",
 		//"terminal.integrated.fontFamily": "Monaspace Neon",
 		//"terminal.integrated.fontFamily": "Monaspace Argon",

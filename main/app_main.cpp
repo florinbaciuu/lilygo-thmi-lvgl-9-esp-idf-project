@@ -337,82 +337,8 @@ uint32_t lv_get_rtos_tick_count_callback(void) {
 /*********************
  *  rtos variables
  *********************/
-TaskHandle_t xHandle_lv_main_task;
-TaskHandle_t xHandle_lv_main_tick_task;
 TaskHandle_t xHandle_chechButton0State;
 //---------
-#if (LV_TASK_NOTIFY_SIGNAL_MODE == USE_MUTEX)
-SemaphoreHandle_t lvgl_mutex;
-bool lv_port_sem_take(void) {
-    return (xSemaphoreTake(lvgl_mutex, portMAX_DELAY) == pdTRUE);
-}
-//---------
-bool lv_port_sem_give(void) {
-    return (xSemaphoreGive(lvgl_mutex) == pdTRUE);
-}
-#endif // (LV_TASK_NOTIFY_SIGNAL_MODE == USE_MUTEX)
-
-/********************************************** */
-/*                   TASK                       */
-/********************************************** */
-#if (LV_TASK_NOTIFY_SIGNAL_MODE == USE_MUTEX)
-void lv_main_tick_task(void* parameter) {
-    static TickType_t tick = 0;
-    tick = xTaskGetTickCount(); // Inițializare corectă
-    while (true) {
-        lv_tick_inc(5);                           // Incrementeaza tick-urile la fiecare 5ms
-        vTaskDelayUntil(&tick, pdMS_TO_TICKS(5)); // Delay precis mult mai rapid asa
-    }
-}
-#elif (LV_TASK_NOTIFY_SIGNAL_MODE == USE_FREERTOS_TASK_NOTIF)
-void lv_main_tick_task(void* parameter) {
-    static TickType_t tick = 0;
-    tick = xTaskGetTickCount();
-    while (true) {
-        lv_tick_inc(5); // Incrementeaza tick-urile LVGL
-        xTaskNotify(
-            xHandle_lv_main_task, LV_TASK_NOTIFY_SIGNAL, eSetBits); // Notifica task-ul principal
-        vTaskDelayUntil(&tick, pdMS_TO_TICKS(5)); // Delay precis mult mai rapid asa
-    }
-}
-#endif // (LV_TASK_NOTIFY_SIGNAL_MODE == USE_FREERTOS_TASK_NOTIF)
-
-/********************************************** */
-/*                   TASK                       */
-/********************************************** */
-#if (LV_TASK_NOTIFY_SIGNAL_MODE == USE_MUTEX)
-void lv_main_task(void* parameter) {
-    static TickType_t tick = 0;
-    tick = xTaskGetTickCount(); // Inițializare corectă
-    while (true) {
-        if (lv_port_sem_take()) // Protejeaza accesul la LVGL
-        {
-            lv_timer_handler(); /* let the GUI do its work */
-            lv_port_sem_give(); // Eliberam mutex-ul
-        }
-        vTaskDelayUntil(&tick, pdMS_TO_TICKS(5)); // Delay precis mult mai rapid asa
-    }
-}
-#endif // (LV_TASK_NOTIFY_SIGNAL_MODE == USE_MUTEX)
-#if LV_TASK_NOTIFY_SIGNAL_MODE == USE_FREERTOS_TASK_NOTIF
-void lv_main_task(void* parameter) {
-    static TickType_t tick = 0;
-    tick = xTaskGetTickCount();                         // Inițializare corectă
-    xHandle_lv_main_task = xTaskGetCurrentTaskHandle(); // Încoronarea oficială
-    while (true) {
-        uint32_t notificationValue;                 // Așteapta notificarea
-        BaseType_t notified = xTaskNotifyWait(0x00, // Niciun bit de ignorat
-            ULONG_MAX,                              // Curata toate biturile
-            &notificationValue,                     // Primește valoarea notificarii
-            portMAX_DELAY);                         // Așteapta notificarea pe termen nelimitat
-        if (notified == pdTRUE && (notificationValue & LV_TASK_NOTIFY_SIGNAL)) {
-            lv_timer_handler(); // LVGL își face treaba
-        }
-        vTaskDelayUntil(&tick, pdMS_TO_TICKS(5)); // Delay precis mult mai rapid asa
-    }
-}
-#endif // (LV_TASK_NOTIFY_SIGNAL_MODE == USE_FREERTOS_TASK_NOTIF)
-
 /********************************************** */
 /*                   TASK                       */
 /********************************************** */
