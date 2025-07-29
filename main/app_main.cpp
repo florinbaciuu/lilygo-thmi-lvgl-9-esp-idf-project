@@ -81,26 +81,28 @@
  *      INCLUDES
  *********************/
 extern "C" {
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include "esp_bootloader_desc.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
 #include "driver/gpio.h"
+#include "esp_bootloader_desc.h"
 #include "esp_lcd_panel_io.h"
 #include "esp_lcd_panel_ops.h"
 #include "esp_lcd_panel_st7789.h" // Sau driverul real folosit de tine
 #include "esp_lcd_touch.h"
 #include "esp_lcd_touch_xpt2046.h"
 #include "esp_log.h"
-#include "lvgl.h"
 #include "esp_lvgl_port.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "lvgl.h"
 #include "ui.h"
 #include <lv_conf.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 
 #include "command_line_interface.h"
 }
+
+#include "temp_sensor_cpu.h"
 
 #include <fmt/base.h>
 #include <fmt/chrono.h>
@@ -390,7 +392,8 @@ extern "C" void app_main(void) {
 
     boot_count++;
     ESP_LOGI("RTC", "Boot count (from RTC RAM): %lu", boot_count);
-    esp_sleep_enable_timer_wakeup(5000000); // 5 secunde în microsecunde
+
+    check_temp_once();
 
     esp_bootloader_desc_t bootloader_desc;
     printf("\n");
@@ -631,7 +634,8 @@ extern "C" void app_main(void) {
     std::string string3 = fmt::format("{1}{0}\n", "Hello", "World");
     fmt::print("{}\n", string3);
     fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "Hello, {}!\n", "world");
-    fmt::print(fg(fmt::color::floral_white) | bg(fmt::color::slate_gray) | fmt::emphasis::underline,"Olá, {}!\n", "Mundo");
+    fmt::print(fg(fmt::color::floral_white) | bg(fmt::color::slate_gray) | fmt::emphasis::underline,
+        "Olá, {}!\n", "Mundo");
     fmt::print(fg(fmt::color::steel_blue) | fmt::emphasis::italic, "Hello{}！\n", "World");
 
     StartCLI();

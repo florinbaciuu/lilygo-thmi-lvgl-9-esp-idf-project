@@ -3,6 +3,7 @@
 cmake_minimum_required(VERSION 3.16)
 # --------------------------------------------------- #
 set(app_sources         "app_main.cpp"
+                        "temp_sensor_cpu.cpp"
                         "init.cpp")
 # --------------------------------------------------- #
 set(app_include_dirs    "."
