@@ -1,5 +1,5 @@
 # Ignoră folderul build
 build/
 .devcontainer/
+.vscode/
 .DS_Store
-#Icon
