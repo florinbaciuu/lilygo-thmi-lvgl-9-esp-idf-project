@@ -22,7 +22,7 @@ git branch -M main
 
 ## 4 🔁 git remote :
 ```
-git remote add origin https://github.com/florinbaciuu/lilygo-thmi-lvgl-esp-idf-project.git
+git remote add origin https://github.com/florinbaciuu/lilygo-thmi-lvgl-9-esp-idf-project.git
 ```
 
 

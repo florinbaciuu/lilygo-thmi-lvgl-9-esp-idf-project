@@ -34,7 +34,7 @@
 		//"editor.fontFamily": "JetBrains Mono Light",
 		//"editor.fontFamily": "JetBrains Mono ExtraLight",
 		//"editor.fontFamily": "JetBrains Mono Thin",
-		"editor.fontFamily": "JetBrains Mono Medium",
+		//"editor.fontFamily": "JetBrains Mono Medium",
 		//"editor.fontFamily": "JetBrains Mono SemiBold",
 		//"editor.fontFamily": "JetBrains Mono ExtraBold",
 		//"editor.fontFamily": "Anonymous Pro",
@@ -478,6 +478,7 @@
 				"italic": false
 			},
 		],
+		"idf.enableCCache": true,
 		//----------------------------------------------------
 		//----------------------------------------------------
 	}
