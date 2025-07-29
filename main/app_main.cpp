@@ -6,10 +6,10 @@
  * @license   MIT
  * @copyright Copyright (c) 2025 Baciu Aurel Florin
  * @copyright Oltean East
- * @version   1.0.0
+ * @version   1.0.1
  *
- * @date      10 July 2025
- * @time      20:40 (PM)
+ * @date      29 July 2025
+ * @time      20:42 (PM)
  * @computer  Mac Mini M4
  * ..
  * @details   This file contains the main application logic, including initialization of hardware
@@ -53,12 +53,6 @@
 /*********************
  *    LVGL DEFINES
  *********************/
-/* LVGL TASK NOTIFICATION */
-#define USE_MUTEX 0
-#define USE_FREERTOS_TASK_NOTIF 1  // cica e mai rapid cu 20 %
-#define LV_TASK_NOTIFY_SIGNAL 0x01 // Semnalul pentru notificarea LVGL
-////#define LV_TASK_NOTIFY_SIGNAL_MODE USE_MUTEX
-#define LV_TASK_NOTIFY_SIGNAL_MODE (USE_FREERTOS_TASK_NOTIF)
 //---------
 /* BUFFER MODE */
 #define BUFFER_20LINES 0
@@ -87,14 +81,12 @@
  *      INCLUDES
  *********************/
 extern "C" {
-#include "esp_bootloader_desc.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#define ESP_LCD_IO_I2C_SKIP_INCLUDE 1
-#include "command_line_interface.h"
+#include "esp_bootloader_desc.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 #include "driver/gpio.h"
 #include "esp_lcd_panel_io.h"
 #include "esp_lcd_panel_ops.h"
@@ -102,10 +94,12 @@ extern "C" {
 #include "esp_lcd_touch.h"
 #include "esp_lcd_touch_xpt2046.h"
 #include "esp_log.h"
-#include "esp_lvgl_port.h"
 #include "lvgl.h"
+#include "esp_lvgl_port.h"
 #include "ui.h"
 #include <lv_conf.h>
+
+#include "command_line_interface.h"
 }
 
 #include <fmt/base.h>

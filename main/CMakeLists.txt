@@ -9,32 +9,28 @@ set(app_include_dirs    "."
                         "")
 # --------------------------------------------------- #
 set(app_requires        driver
+                        esp_bootloader_format
+                        esp_psram
                         fatfs
                         spi_flash
                         esp_driver_usb_serial_jtag
-                        esp_lcd esp_lcd_touch esp_lcd_touch_xpt2046 lvgl esp_lvgl_port
                         esp_system
                         heap
+                        console
                         esp_common
-                        esp_psram
                         esp_hw_support
+                        nvs_flash
+                        esp_lcd
+                        esp_wifi
                         esp-file-iterator
-                        button
-                        ccomp_timer
                         fmt
-                        cmake_utilities
-                        pax-gfx
-                        terminal-emulator
-                        pl_uart pl_common pl_usb pl_nvs pl_usb tinyusb esp_tinyusb
-                        adafruit_gfx
+                        esp_lcd_touch
+                        esp_lcd_touch_xpt2046
+                        lvgl
+                        esp_lvgl_port
                         )
 # --------------------------------------------------- #
-set(app_priv_requires   ${app_requires} 
-                        esp_bootloader_format
-                        nvs_flash
-                        esp_wifi
-                        console
-                        )
+set(app_priv_requires   ${app_requires})
 # --------------------------------------------------- #
 # Set my components
 # These are components that are not part of the IDF 
