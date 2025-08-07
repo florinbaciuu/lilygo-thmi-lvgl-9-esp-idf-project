@@ -2,7 +2,7 @@ dependencies:
   esp_lcd_touch:
     dependencies: []
     source:
-      path: /Users/florinbaciu/Desktop/workspace/lilygo-thmi-lvgl-9-esp-idf-project/components/esp_lcd_touch
+      path: C:\Users\User\workspace\lilygo-thmi-lvgl-9-esp-idf-project\components\esp_lcd_touch
       type: local
     version: 1.1.2
   idf:
@@ -19,7 +19,7 @@ dependencies:
   tinyusb:
     dependencies: []
     source:
-      path: /Users/florinbaciu/Desktop/workspace/lilygo-thmi-lvgl-9-esp-idf-project/components/tinyusb
+      path: C:\Users\User\workspace\lilygo-thmi-lvgl-9-esp-idf-project\components\tinyusb
       type: local
     version: 0.18.0~2
 direct_dependencies:
@@ -27,6 +27,6 @@ direct_dependencies:
 - espressif/tinyusb
 - idf
 - lvgl/lvgl
-manifest_hash: 46504199e4dd916620b298fc21e29b19b420db63a2a92cf03ea3f9d18d99e5ef
+manifest_hash: 66f32d3ac2efdd2f2bace79b0e71f3f8d716bcfbd7b716c4b25373dcab22ddca
 target: esp32s3
 version: 2.0.0

@@ -38,7 +38,9 @@ set(app_priv_requires   ${app_requires})
 # but are used in this project.
 # Put this components in /lib after set 
 # set(EXTRA_COMPONENT_DIRS lib) in root/CMakeLists.txt
-set(my_components_add   ESP32_Command_Line_Interface
+set(my_components_add   
+esp32s3-cli-v002
+onebutton-v001
 )
 # --------------------------------------------------- #
 idf_component_register(

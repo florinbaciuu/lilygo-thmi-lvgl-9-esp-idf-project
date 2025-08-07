@@ -29,7 +29,7 @@
 		//------------------------------------------------------------------
 		//"editor.fontFamily": "Consolas",
 		//"editor.fontFamily": "IBM Plex Mono",
-		//"editor.fontFamily": "JetBrains Mono",
+		"editor.fontFamily": "JetBrains Mono",
 		//"editor.fontFamily": "JetBrains Mono Regular",
 		//"editor.fontFamily": "JetBrains Mono Light",
 		//"editor.fontFamily": "JetBrains Mono ExtraLight",
