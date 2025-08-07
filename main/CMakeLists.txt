@@ -39,8 +39,8 @@ set(app_priv_requires   ${app_requires})
 # Put this components in /lib after set 
 # set(EXTRA_COMPONENT_DIRS lib) in root/CMakeLists.txt
 set(my_components_add   
-esp32s3-cli-v002
-onebutton-v001
+onebutton-v0001
+filesystem-v0002
 )
 # --------------------------------------------------- #
 idf_component_register(
